@@ -29,6 +29,12 @@ namespace Asteroids
             GetOrAddComponent<PolygonCollider2D>(gameObject);
             return gameObject;
         }
+        
+        public static GameObject AddCircleCollider2D(this GameObject gameObject)
+        {
+            GetOrAddComponent<CircleCollider2D>(gameObject);
+            return gameObject;
+        }
 
         public static GameObject AddSprite(this GameObject gameObject, Sprite sprite)
         {

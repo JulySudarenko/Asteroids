@@ -6,24 +6,20 @@ namespace Asteroids
     public class BulletFactory : IBulletFactory
     {
         private BulletData _bulletData;
-        private Transform _bulletTransform;
+        private string _name = "Bullet";
         private float _mass = 1.0f;
 
-        public BulletFactory(Transform spaceshipTransform, BulletData bulletData)
+        public BulletFactory(BulletData bulletData)
         {
             _bulletData = bulletData;
-            // _bulletTransform.position = new Vector3(
-            //     spaceshipTransform.position.x + bulletData.deltaX, 
-            //     spaceshipTransform.position.y + bulletData.deltaY, 
-            //     spaceshipTransform.position.z);
         }
         
         public GameObject CreateBullet()
         {
-            return new GameObject()
+            return new GameObject(_name)
                 .AddSprite(_bulletData.BulletSprite)
-                .AddRigidbody2D(_mass)
-                .AddTransform(_bulletTransform);
+                .AddCircleCollider2D()
+                .AddRigidbody2D(_mass);
         }
     }
 }

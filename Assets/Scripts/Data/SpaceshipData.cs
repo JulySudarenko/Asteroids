@@ -9,8 +9,8 @@ namespace Asteroids
         public Transform SpaceshipTransform;
         public Sprite SpaceshipSprite;
         [SerializeField, Range(1, 100)] private float _spaceshipHealth;
-        [SerializeField, Range(1, 100)] private float _spaceshipSpeed;
-        [SerializeField, Range(1, 100)] private float _spaceshipAcceleration;
+        [SerializeField, Range(1, 50)] private float _spaceshipSpeed;
+        [SerializeField, Range(1, 50)] private float _spaceshipAcceleration;
            
         public float Health => _spaceshipHealth;
 

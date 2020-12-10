@@ -4,15 +4,14 @@
 namespace Asteroids
 {
     [CreateAssetMenu(fileName = "Bullet", menuName = "Data/Bullet", order = 0)]
-    public class BulletData : ScriptableObject, IForce
+    public class BulletData : ScriptableObject, IForce, IShotPoint
     {
         public Sprite BulletSprite;
 
-        public float deltaX = 0.02f;
-        public float deltaY = 0.4f;
-
-        [SerializeField, Range(1, 100)] private float _bulletForce;
+        [SerializeField, Range(1, 5000)] private float _bulletForce;
+        [SerializeField, Range(0, 3)] private float _shotPoint;
 
         public float BulletForce => _bulletForce;
+        public float ShotPoint => _shotPoint;
     }
 }

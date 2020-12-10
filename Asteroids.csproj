@@ -60,8 +60,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Assistants\AxisManager.cs" />
      <Compile Include="Assets\Scripts\Assistants\BuildAssistant.cs" />
-     <Compile Include="Assets\Scripts\Attack\BulletForce.cs" />
      <Compile Include="Assets\Scripts\Attack\IForce.cs" />
+     <Compile Include="Assets\Scripts\Attack\IShotPoint.cs" />
+     <Compile Include="Assets\Scripts\Attack\InputAttackController.cs" />
+     <Compile Include="Assets\Scripts\Attack\ShotPoint.cs" />
      <Compile Include="Assets\Scripts\BulletModel\BulletFactory.cs" />
      <Compile Include="Assets\Scripts\BulletModel\IBulletFactory.cs" />
      <Compile Include="Assets\Scripts\Controller\BulletInitialization.cs" />
@@ -74,7 +76,7 @@
      <Compile Include="Assets\Scripts\Health\HealthKeeper.cs" />
      <Compile Include="Assets\Scripts\Health\IHealth.cs" />
      <Compile Include="Assets\Scripts\Health\TrackingSpaceshipContacts.cs" />
-     <Compile Include="Assets\Scripts\Input\InputController.cs" />
+     <Compile Include="Assets\Scripts\Input\InputMoveController.cs" />
      <Compile Include="Assets\Scripts\Move\AccelerationMove.cs" />
      <Compile Include="Assets\Scripts\Move\IAcceleration.cs" />
      <Compile Include="Assets\Scripts\Move\IMove.cs" />

@@ -18,6 +18,7 @@ namespace Asteroids
         
         private void OnCollisionEnter2D(Collision2D other)
         {
+            Debug.Log("Contact");
             if (other.collider.CompareTag(ASTEROID))
             {
                 _healthKeeper.DamageDone?.Invoke(_damagePoints);
