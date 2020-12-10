@@ -38,7 +38,7 @@ namespace Asteroids
             var direction = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
             _inputMoveController.CheckInput(direction);
 
-            _inputAttackController.Shoot(_shotPoint.GetPoint());
+            _inputAttackController.Shoot(_shotPoint.GetPoint(), direction);
         }
     }
 }

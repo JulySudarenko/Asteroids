@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BulletData
   m_EditorClassIdentifier: 
   BulletSprite: {fileID: 21300000, guid: b798bb43e850ad7439eebdd316e1073f, type: 3}
-  _bulletForce: 1681
-  _shotPoint: 0.3
+  _bulletForce: 10
+  _shotPoint: 0.8

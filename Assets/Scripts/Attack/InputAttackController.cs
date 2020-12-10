@@ -15,13 +15,13 @@ namespace Asteroids
             _force = force;
         }
 
-        public void Shoot(Transform point)
+        public void Shoot(Transform point, Vector3 direction)
         {
             if (Input.GetButtonDown(FIRE))
             {
                 var bullet = _bulletInitialization.GetBullet(point);
                 var rigidbody = bullet.GetComponent<Rigidbody2D>();
-                rigidbody.AddForce(bullet.transform.up * _force.BulletForce);
+                rigidbody.AddForce(direction * _force.BulletForce);
                     //надо пули делать дешевле :)
                     //уничтожать или менять позицию и видимость.
             }
