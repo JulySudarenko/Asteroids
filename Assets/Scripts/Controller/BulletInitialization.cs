@@ -5,16 +5,17 @@ namespace Asteroids
 {
     public class BulletInitialization
     {
-        private IBulletFactory _bulletFactory;
+        private static IBulletFactory _bulletFactory;
 
         public BulletInitialization(IBulletFactory bulletFactory)
         {
             _bulletFactory = bulletFactory;
         }
 
-        public GameObject GetBullet(Transform transform)
+        public Rigidbody2D GetBullet()
         {
-            return _bulletFactory.CreateBullet().AddTransform(transform);
+            var bullet = _bulletFactory.CreateBullet().GetComponent<Rigidbody2D>();
+            return bullet;
         }
     }
 }

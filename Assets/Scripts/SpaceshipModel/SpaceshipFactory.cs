@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static Asteroids.NameManager;
 
 
 namespace Asteroids
@@ -6,7 +7,7 @@ namespace Asteroids
     public class SpaceshipFactory : ISpaceshipFactory
     {
         private readonly SpaceshipData _spaceshipData;
-        private string _name = "Player";
+        private const float _mass = 1.0f;
 
         public SpaceshipFactory(SpaceshipData spaceshipData)
         {
@@ -15,10 +16,11 @@ namespace Asteroids
 
         public GameObject CreateSpaceship()
         {
-            return new GameObject(_name)
-                .AddTag(_name)
+            return new GameObject(NAME_PLAYER)
+                .AddTag(NAME_PLAYER)
                 .AddTransform(_spaceshipData.SpaceshipTransform)
                 .AddSprite(_spaceshipData.SpaceshipSprite)
+                .AddRigidbody2D(_mass)
                 .AddPoligonCollider2D();
         }
     }

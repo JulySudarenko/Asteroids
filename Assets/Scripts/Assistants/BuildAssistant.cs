@@ -5,6 +5,12 @@ namespace Asteroids
 {
     public static class BuildAssistant
     {
+        public static GameObject AddName(this GameObject gameObject, string name)
+        {
+            gameObject.name = name;
+            return gameObject;
+        }
+        
         public static GameObject AddTag(this GameObject gameObject, string tag)
         {
             gameObject.tag = tag;

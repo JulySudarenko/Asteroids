@@ -1,29 +1,25 @@
 ﻿using UnityEngine;
+using static Asteroids.NameManager;
 
 
 namespace Asteroids
 {
     public class ShotPoint
     {
-        private Transform _point;
-        private Vector3 _vector;
-        private float _deltaY;
+        private Transform _parrent;
+        private Transform _shotPoint;
 
-        public ShotPoint(Transform transform, IShotPoint point)
+        public ShotPoint(Transform parrent, IShotPoint shotPoint)
         {
-            _point = transform;
-            _deltaY = point.ShotPoint;
+            _parrent = parrent;
+            _shotPoint = shotPoint.ShotPoint;
         }
-
-        public Transform GetPoint()
+            
+        public Transform GetShotPoint()
         {
-            _vector = _point.position;
-            _vector.y += _deltaY;
-            var point = new GameObject();
-            point.transform.position = _vector;
-            point.transform.rotation = _point.rotation;
-                
-            return point.transform;
+            var barrel = new GameObject(NAME_SHOT_POINT).AddTransform(_shotPoint);
+            barrel.transform.SetParent(_parrent.transform);
+            return barrel.transform;
         }
     }
 }

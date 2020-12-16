@@ -6,8 +6,7 @@ namespace Asteroids
     public class BulletFactory : IBulletFactory
     {
         private BulletData _bulletData;
-        private string _name = "Bullet";
-        private float _mass = 1.0f;
+        private const float _mass = 1.0f;
 
         public BulletFactory(BulletData bulletData)
         {
@@ -16,7 +15,7 @@ namespace Asteroids
         
         public GameObject CreateBullet()
         {
-            return new GameObject(_name)
+            return new GameObject(NameManager.NAME_AMMUNITION)
                 .AddSprite(_bulletData.BulletSprite)
                 .AddCircleCollider2D()
                 .AddRigidbody2D(_mass);

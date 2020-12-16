@@ -1,29 +1,30 @@
 ﻿using UnityEngine;
 using static Asteroids.AxisManager;
+using static Asteroids.NameManager;
 
 
 namespace Asteroids
 {
     public class InputAttackController
     {
-        private BulletInitialization _bulletInitialization;
+        private BulletPool _bulletPool;
         private IForce _force;
+        private int _capacityPool = 20;
 
         public InputAttackController(BulletFactory bulletFactory, IForce force)
         {
-            _bulletInitialization = new BulletInitialization(bulletFactory);
             _force = force;
+            _bulletPool = new BulletPool(bulletFactory,_capacityPool);
         }
 
-        public void Shoot(Transform point, Vector3 direction)
+        public void Shoot(Transform shotPoint)
         {
             if (Input.GetButtonDown(FIRE))
             {
-                var bullet = _bulletInitialization.GetBullet(point);
-                var rigidbody = bullet.GetComponent<Rigidbody2D>();
-                rigidbody.AddForce(direction * _force.BulletForce);
-                    //надо пули делать дешевле :)
-                    //уничтожать или менять позицию и видимость.
+                var bullet = _bulletPool.GetBullet(NAME_AMMUNITION);
+                bullet.gameObject.AddTransform(shotPoint);
+                bullet.gameObject.SetActive(true);
+                bullet.AddForce(shotPoint.up * _force.BulletForce);
             }
         }
     }
