@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 
 namespace Asteroids
@@ -7,42 +8,53 @@ namespace Asteroids
     {
         private Transform _target;
         private EnemyData _enemyData;
+        private IEnemyFactory _hunterFactory;
+        private Hunter _hunter;
 
-        public EnemyInitialization(Transform target)
+        public EnemyInitialization(Transform target, EnemyData enemyData)
         {
             _target = target;
-            _enemyData = ScriptableObject.CreateInstance<EnemyData>();
+            //_enemyData = ScriptableObject.CreateInstance<EnemyData>();
+            _enemyData = enemyData;
+            _hunterFactory = new HunterFactory(enemyData);
         }
 
         public void Initialize()
         {
-            
             Enemy.CreateAsteroidEnemy(new Health(100.0f, 100.0f));
             Enemy.CreateCometEnemy(new Health(50.0f, 50.0f));
 
             IEnemyFactory asteroidFactory = new AsteroidFactory();
             asteroidFactory.Create(new Health(100.0f, 100.0f));
-            
+
             IEnemyFactory cometFactory = new CometFactory();
             cometFactory.Create(new Health(50.0f, 50.0f));
-            
+
             Enemy.Factory = new AsteroidFactory();
             Enemy.Factory.Create(new Health(100.0f, 100.0f));
-            
+
             Enemy.Factory = new CometFactory();
             Enemy.Factory.Create(new Health(50.0f, 50.0f));
- 
-        }
 
-        public void Execute()
-        {
             EnemyPool enemyPool = new EnemyPool(_enemyData.AsteroidPoolSize);
             var enemy = enemyPool.GetEnemy("Asteroid");
             enemy.transform.position = SpawnPlaces.FindPoint(
                 _target.position, _enemyData.SpawnDistance, _enemyData.StartAngle, _enemyData.FinishAngle);
             enemy.gameObject.SetActive(true);
+
             var rigidbody = enemy.GetComponent<Rigidbody2D>();
             rigidbody.AddForce((_target.position - enemy.transform.position) * _enemyData.AsteroidForce);
+
+            _hunter = (Hunter) _hunterFactory.Create(new Health(150.0f, 150.0f));
+            _hunter.transform.position = SpawnPlaces.FindPoint(
+                _target.position, _enemyData.SpawnDistance, _enemyData.StartAngle, _enemyData.FinishAngle);
+        }
+
+        public void Execute(float deltaTime)
+        {
+            Vector3 direction = (_target.position - _hunter.transform.localPosition).normalized;
+            var speed = deltaTime * _enemyData.HunterSpeed;
+            _hunter.transform.position += direction * speed;
         }
     }
 }

@@ -29,6 +29,10 @@ namespace Asteroids
                     CauseDamage(5.0f);
                     Debug.Log(_spaceshipHealth);
                     break;
+                case NameManager.NAME_HUNTER:
+                    CauseDamage(7.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
                 case NameManager.NAME_AMMUNITION:
                     Debug.Log(_spaceshipHealth);
                     break;

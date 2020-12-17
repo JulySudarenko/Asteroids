@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Asteroids
@@ -6,15 +7,15 @@ namespace Asteroids
     [CreateAssetMenu(fileName = "Enemy", menuName = "Data/Enemy", order = 0)]
     public class EnemyData : ScriptableObject
     {
-        [Header("Asteroids")] 
-        public Sprite _asteroidSprite;
+        [FormerlySerializedAs("_asteroidSprite")] [Header("Asteroids")] 
+        public Sprite AsteroidSprite;
         [SerializeField, Range(1, 50)] private float _asteroidForce = 5.0f;
         [SerializeField, Range(1, 50)] private int _asteroidPoolSize = 5;
-        [Header("Comet")] 
-        public Sprite _cometSprite;
+        [FormerlySerializedAs("_cometSprite")] [Header("Comet")] 
+        public Sprite CometSprite;
         [SerializeField, Range(1, 50)] private float _cometForce = 7.0f;
-        [Header("Hunter")] 
-        public Sprite _hunterSprite;
+        [FormerlySerializedAs("_hunterSprite")] [Header("Hunter")] 
+        public Sprite HunterSprite;
         [SerializeField, Range(1, 50)] private float _hunterSpeed = 7.0f;
         [Header("Spawn Point")]
         [SerializeField, Range(1, 50)] private float _radius = 10.0f;

@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ea0a8d0d6408097d4fa026c4fc4a7, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
+  AsteroidSprite: {fileID: 21300000, guid: 264f9fc257019d74a92ea3508776b6f5, type: 3}
   _asteroidForce: 21.5
   _asteroidPoolSize: 5
+  CometSprite: {fileID: 21300000, guid: d6220a8269060814b86f9a0969bca95d, type: 3}
   _cometForce: 7
-  _hunterSpeed: 7
+  HunterSprite: {fileID: 21300000, guid: 38ceccf2cc1310c4ca6fb20a2bc0ee45, type: 3}
+  _hunterSpeed: 5
   _radius: 10
   _startAngle: 1
   _finishAngle: 180

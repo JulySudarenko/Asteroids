@@ -39,7 +39,7 @@ namespace Asteroids
 
             var platform = new PlatformFactory().Create(Application.platform);
 
-            _enemyInitialization = new EnemyInitialization(_spaceshipInitialization.GetTransform());
+            _enemyInitialization = new EnemyInitialization(_spaceshipInitialization.GetTransform(), _asteroidsData.EnemyData);
             _enemyInitialization.Initialize();
         }
 
@@ -53,7 +53,7 @@ namespace Asteroids
         {
             _inputAttackController.Shoot(_shotPoint);
 
-            _enemyInitialization.Execute();
+            _enemyInitialization.Execute(Time.deltaTime);
         }
     }
 }
