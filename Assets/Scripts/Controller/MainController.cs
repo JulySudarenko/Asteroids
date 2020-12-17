@@ -10,7 +10,7 @@ namespace Asteroids
 
         private SpaceshipInitialization _spaceshipInitialization;
         private EnemyInitialization _enemyInitialization;
-        
+
         private Transform _shotPoint;
         private InputMoveController _inputMoveController;
         private InputAttackController _inputAttackController;
@@ -28,7 +28,7 @@ namespace Asteroids
             var barrel = new ShotPoint(_spaceshipInitialization.GetTransform(), _asteroidsData.SpaceshipData);
             _shotPoint = barrel.GetShotPoint();
             var bulletFactory = new BulletFactory(_asteroidsData.BulletData);
-            _inputAttackController = new InputAttackController(bulletFactory, _asteroidsData.BulletData);
+            _inputAttackController = new InputAttackController(bulletFactory, _asteroidsData.BulletData, _asteroidsData.BulletData);
 
             var moveTransform = new AccelerationMove(_spaceshipInitialization.GetTransform(),
                 _asteroidsData.SpaceshipData,

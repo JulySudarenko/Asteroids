@@ -19,20 +19,25 @@ namespace Asteroids
 
         public void DetermineContact(GameObject gameObject)
         {
-            switch (gameObject)
+            switch (gameObject.name)
             {
-                // case NameManager.NAME_ASTEROID :
-                //     CauseDamage(10.0f);
-                //     break;
-                // case NameManager.NAME_COMET:
-                //     CauseDamage(5.0f);
-                //     break;
+                case NameManager.NAME_ASTEROID + "(Clone)":
+                    CauseDamage(10.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                case NameManager.NAME_COMET + "(Clone)":
+                    CauseDamage(5.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                case NameManager.NAME_AMMUNITION:
+                    Debug.Log(_spaceshipHealth);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameObject), gameObject,
                         "Не предусмотрен в программе");
             }
         }
-        
+
         private void CauseDamage(float point)
         {
             _spaceshipHealth -= point;

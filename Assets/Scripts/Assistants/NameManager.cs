@@ -10,5 +10,6 @@
         public const string NAME_WORLD = "Deep_Space";
         public const string NAME_ASTEROID = "Asteroid";
         public const string NAME_COMET = "Comet";
+        public const string NAME_HUNTER = "Hunter";
     }
 }

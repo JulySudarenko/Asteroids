@@ -4,7 +4,7 @@
 namespace Asteroids
 {
     [CreateAssetMenu(fileName = "Bullet", menuName = "Data/Bullet", order = 0)]
-    public class BulletData : ScriptableObject, IForce
+    public class BulletData : ScriptableObject, IForce, IPoolSize
     {
         public Sprite BulletSprite;
 
@@ -13,6 +13,6 @@ namespace Asteroids
 
         public float BulletForce => _bulletForce;
 
-        public int BulletPoolSize => _bulletPoolSize;
+        public int PoolSize => _bulletPoolSize;
     }
 }

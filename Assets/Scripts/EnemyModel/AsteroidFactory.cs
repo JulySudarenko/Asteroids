@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Object = UnityEngine.Object;
 
 
@@ -11,10 +10,6 @@ namespace Asteroids
         {
             var enemy =
                 Object.Instantiate(Resources.Load<Asteroid>("Enemy/Asteroid"));
-            if (enemy is null)
-            {
-                throw new NullReferenceException("Check asteroid!");
-            }
 
             enemy.Health = hp;
             return enemy;

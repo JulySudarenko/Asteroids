@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static Asteroids.NameManager;
 
 
 namespace Asteroids
@@ -15,7 +16,7 @@ namespace Asteroids
         
         public GameObject CreateBullet()
         {
-            return new GameObject(NameManager.NAME_AMMUNITION)
+            return new GameObject(NAME_AMMUNITION)
                 .AddSprite(_bulletData.BulletSprite)
                 .AddCircleCollider2D()
                 .AddRigidbody2D(_mass);

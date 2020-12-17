@@ -9,12 +9,13 @@ namespace Asteroids
     {
         private BulletPool _bulletPool;
         private IForce _force;
-        private int _capacityPool = 20;
+        private IPoolSize _capacityPool;
 
-        public InputAttackController(BulletFactory bulletFactory, IForce force)
+        public InputAttackController(BulletFactory bulletFactory, IForce force, IPoolSize poolSize)
         {
             _force = force;
-            _bulletPool = new BulletPool(bulletFactory,_capacityPool);
+            _capacityPool = poolSize;
+            _bulletPool = new BulletPool(bulletFactory, _capacityPool.PoolSize);
         }
 
         public void Shoot(Transform shotPoint)

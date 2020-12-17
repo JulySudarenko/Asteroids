@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSprite: {fileID: 21300000, guid: b798bb43e850ad7439eebdd316e1073f, type: 3}
   _bulletForce: 1000
+  _bulletPoolSize: 20

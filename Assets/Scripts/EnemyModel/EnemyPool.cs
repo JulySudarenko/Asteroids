@@ -51,10 +51,10 @@ namespace Asteroids
             var enemy = enemies.FirstOrDefault(a => !a.gameObject.activeSelf);
             if (enemy == null)
             {
-                var laser = Resources.Load<Asteroid>("Enemy/Asteroid");
+                var asteroid = Resources.Load<Asteroid>("Enemy/Asteroid");
                 for (var i = 0; i < _capacityPool; i++)
                 {
-                    var instantiate = Object.Instantiate(laser);
+                    var instantiate = Object.Instantiate(asteroid);
                     ReturnToPool(instantiate.transform);
                     enemies.Add(instantiate);
                 }

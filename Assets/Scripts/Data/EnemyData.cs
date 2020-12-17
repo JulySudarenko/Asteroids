@@ -6,12 +6,15 @@ namespace Asteroids
     [CreateAssetMenu(fileName = "Enemy", menuName = "Data/Enemy", order = 0)]
     public class EnemyData : ScriptableObject
     {
-        [Header("Asteroids")]
+        [Header("Asteroids")] 
+        public Sprite _asteroidSprite;
         [SerializeField, Range(1, 50)] private float _asteroidForce = 5.0f;
         [SerializeField, Range(1, 50)] private int _asteroidPoolSize = 5;
-        [Header("Comet")]
+        [Header("Comet")] 
+        public Sprite _cometSprite;
         [SerializeField, Range(1, 50)] private float _cometForce = 7.0f;
         [Header("Hunter")] 
+        public Sprite _hunterSprite;
         [SerializeField, Range(1, 50)] private float _hunterSpeed = 7.0f;
         [Header("Spawn Point")]
         [SerializeField, Range(1, 50)] private float _radius = 10.0f;
