@@ -3,7 +3,7 @@
 
 namespace Asteroids
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy// : MonoBehaviour
     {
         public static IEnemyFactory Factory;
         private Transform _rotPool;
@@ -14,7 +14,7 @@ namespace Asteroids
             {
                 if (_health.Current <= 0.0f)
                 {
-                    ReturnToPool();
+                    //ReturnToPool();
                 }
                 return _health;
             }
@@ -32,42 +32,42 @@ namespace Asteroids
                 return _rotPool;
             }
         }
-        public static Asteroid CreateAsteroidEnemy(Health hp)
-        {
-            var enemy =
-                Instantiate(Resources.Load<Asteroid>("Enemy/Asteroid"));
+        // public static Asteroid CreateAsteroidEnemy(Health hp)
+        // {
+        //     var enemy =
+        //         Instantiate(Resources.Load<Asteroid>("Enemy/Asteroid"));
+        //
+        //     enemy.Health = hp;
+        //
+        //     return enemy;
+        // }
+        //
+        // public static Comet CreateCometEnemy(Health hp)
+        // {
+        //     var enemy = Instantiate(Resources.Load<Comet>("Enemy/Comet"));
+        //
+        //     enemy.Health = hp;
+        //
+        //     return enemy;
+        // }
 
-            enemy.Health = hp;
-
-            return enemy;
-        }
-        
-        public static Comet CreateCometEnemy(Health hp)
-        {
-            var enemy = Instantiate(Resources.Load<Comet>("Enemy/Comet"));
-
-            enemy.Health = hp;
-
-            return enemy;
-        }
-
-        public void ActiveEnemy(Vector3 position, Quaternion rotation)
-        {
-            transform.localPosition = position;
-            transform.localRotation = rotation;
-            gameObject.SetActive(true);
-            transform.SetParent(null);
-        }
-        protected void ReturnToPool()
-        {
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
-            gameObject.SetActive(false);
-            transform.SetParent(RotPool);
-            if (!RotPool)
-            {
-                Destroy(gameObject);
-            }
-        }
+        // public void ActiveEnemy(Vector3 position, Quaternion rotation)
+        // {
+        //     transform.localPosition = position;
+        //     transform.localRotation = rotation;
+        //     gameObject.SetActive(true);
+        //     transform.SetParent(null);
+        // }
+        // protected void ReturnToPool()
+        // {
+        //     transform.localPosition = Vector3.zero;
+        //     transform.localRotation = Quaternion.identity;
+        //     gameObject.SetActive(false);
+        //     transform.SetParent(RotPool);
+        //     if (!RotPool)
+        //     {
+        //         Destroy(gameObject);
+        //     }
+        // }
     }
 }

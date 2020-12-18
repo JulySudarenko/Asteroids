@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
-using Object = UnityEngine.Object;
 
 
 namespace Asteroids
 {
     public sealed class AsteroidFactory : IEnemyFactory
     {
-        public Enemy Create(Health hp)
-        {
-            var enemy =
-                Object.Instantiate(Resources.Load<Asteroid>("Enemy/Asteroid"));
+        private readonly EnemyData _enemyData;
+        private const float _mass = 1.0f;
 
-            enemy.Health = hp;
-            return enemy;
+        public AsteroidFactory(EnemyData enemyData)
+        {
+            _enemyData = enemyData;
+        }
+
+
+        public GameObject CreateEnemy()
+        {
+            return new GameObject(NameManager.NAME_ASTEROID)
+                .AddSprite(_enemyData.AsteroidData.AsteroidSprite)
+                .AddRigidbody2D(_mass)
+                .AddCircleCollider2D();
         }
     }
 }

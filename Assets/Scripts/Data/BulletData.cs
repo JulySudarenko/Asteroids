@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Asteroids
@@ -8,10 +9,10 @@ namespace Asteroids
     {
         public Sprite BulletSprite;
 
-        [SerializeField, Range(1, 5000)] private float _bulletForce;
+        [SerializeField, Range(1, 5000)] private float _force;
         [SerializeField, Range(1, 50)] private int _bulletPoolSize;
 
-        public float BulletForce => _bulletForce;
+        public float Force => _force;
 
         public int PoolSize => _bulletPoolSize;
     }

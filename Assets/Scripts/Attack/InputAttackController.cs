@@ -25,7 +25,7 @@ namespace Asteroids
                 var bullet = _bulletPool.GetBullet(NAME_AMMUNITION);
                 bullet.gameObject.AddTransform(shotPoint);
                 bullet.gameObject.SetActive(true);
-                bullet.AddForce(shotPoint.up * _force.BulletForce);
+                bullet.AddForce(shotPoint.up * _force.Force);
             }
         }
     }

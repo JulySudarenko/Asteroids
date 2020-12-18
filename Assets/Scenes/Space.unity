@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8229c87c0b74b4e9c8cea8ef07bfcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidsData: {fileID: 11400000, guid: d8c1fc2a8c402bd479cd1d07d75a1fca, type: 2}
+  _data: {fileID: 11400000, guid: d8c1fc2a8c402bd479cd1d07d75a1fca, type: 2}
 --- !u!4 &73850194
 Transform:
   m_ObjectHideFlags: 0

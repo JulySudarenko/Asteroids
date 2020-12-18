@@ -21,11 +21,11 @@ namespace Asteroids
         {
             switch (gameObject.name)
             {
-                case NameManager.NAME_ASTEROID + "(Clone)":
+                case NameManager.NAME_ASTEROID:
                     CauseDamage(10.0f);
                     Debug.Log(_spaceshipHealth);
                     break;
-                case NameManager.NAME_COMET + "(Clone)":
+                case NameManager.NAME_COMET:
                     CauseDamage(5.0f);
                     Debug.Log(_spaceshipHealth);
                     break;

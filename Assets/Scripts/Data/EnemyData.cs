@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using System.IO;
+using UnityEngine;
 
 
 namespace Asteroids
@@ -7,34 +7,97 @@ namespace Asteroids
     [CreateAssetMenu(fileName = "Enemy", menuName = "Data/Enemy", order = 0)]
     public class EnemyData : ScriptableObject
     {
-        [FormerlySerializedAs("_asteroidSprite")] [Header("Asteroids")] 
-        public Sprite AsteroidSprite;
-        [SerializeField, Range(1, 50)] private float _asteroidForce = 5.0f;
-        [SerializeField, Range(1, 50)] private int _asteroidPoolSize = 5;
-        [FormerlySerializedAs("_cometSprite")] [Header("Comet")] 
-        public Sprite CometSprite;
-        [SerializeField, Range(1, 50)] private float _cometForce = 7.0f;
-        [FormerlySerializedAs("_hunterSprite")] [Header("Hunter")] 
-        public Sprite HunterSprite;
-        [SerializeField, Range(1, 50)] private float _hunterSpeed = 7.0f;
-        [Header("Spawn Point")]
-        [SerializeField, Range(1, 50)] private float _radius = 10.0f;
-        [SerializeField, Range(1, 360)] private int _startAngle = 1;
-        [SerializeField, Range(1, 360)] private int _finishAngle = 180;
+        [SerializeField] private string _asteroidDataPath;
+        [SerializeField] private string _cometDataPath;
+        [SerializeField] private string _hunterDataPath;
+        private AsteroidData _asteroidData;
+        private CometData _cometData;
+        private HunterData _hunterData;
+
+        // [Header("Asteroids")] 
+        // public Sprite AsteroidSprite;
+        // [SerializeField, Range(1, 50)] private float _asteroidForce;
+        // [SerializeField, Range(1, 200)] private float _asteroidHealth;
+        // [SerializeField, Range(1, 50)] private int _asteroidPoolSize;
+        //
+        // [Header("Comet")] 
+        // public Sprite CometSprite;
+        // [SerializeField, Range(1, 50)] private float _cometForce;
+        // [SerializeField, Range(1, 200)] private float _cometHealth;
+        // [SerializeField, Range(1, 50)] private int _cometPoolSize;
+        //
+        // [Header("Hunter")] 
+        // public Sprite HunterSprite;
+        // [SerializeField, Range(1, 50)] private float _hunterSpeed;
+        // [SerializeField, Range(1, 200)] private float _hunterHealth;
+
+        [Header("Spawn Point")] 
+        [SerializeField, Range(1, 50)] private float _radius;
+        [SerializeField, Range(1, 360)] private int _startAngle;
+        [SerializeField, Range(1, 360)] private int _finishAngle;
 
 
-        public float AsteroidForce => _asteroidForce;
+        // public float AsteroidForce => _asteroidForce;
+        //
+        // public float CometForce => _cometForce;
+        //
+        // public float HunterSpeed => _hunterSpeed;
 
-        public float CometForce => _cometForce;
-
-        public float HunterSpeed => _hunterSpeed;
         public float SpawnDistance => _radius;
 
-        public int AsteroidPoolSize => _asteroidPoolSize;
+        // public float AsteroidHealth => _asteroidHealth;
+        //
+        // public float CometHealth => _cometHealth;
+        //
+        // public float HunterHealth => _hunterHealth;
+        //
+        // public int AsteroidPoolSize => _asteroidPoolSize;
 
         public int StartAngle => _startAngle;
 
         public int FinishAngle => _finishAngle;
+
+        public AsteroidData AsteroidData
+        {
+            get
+            {
+                if (_asteroidData == null)
+                {
+                    _asteroidData = Load<AsteroidData>("Data/" + _asteroidDataPath);
+                }
+
+                return _asteroidData;
+            }
+        }
+
+        public CometData CometData
+        {
+            get
+            {
+                if (_cometData == null)
+                {
+                    _cometData = Load<CometData>("Data/" + _cometDataPath);
+                }
+
+                return _cometData;
+            }
+        }
+
+        public HunterData HunterData
+        {
+            get
+            {
+                if (_hunterData == null)
+                {
+                    _hunterData = Load<HunterData>("Data/" + _hunterDataPath);
+                }
+
+                return _hunterData;
+            }
+        }
+
+
+        private T Load<T>(string resourcesPath) where T : Object =>
+            Resources.Load<T>(Path.ChangeExtension(resourcesPath, null));
     }
 }
-

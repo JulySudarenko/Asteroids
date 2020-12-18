@@ -13,16 +13,12 @@ namespace Asteroids
             _enemyData = enemyData;
         }
 
-        public Enemy Create(Health hp)
+        public GameObject CreateEnemy()
         {
-            Enemy enemy = new GameObject(NameManager.NAME_HUNTER)
-                .AddSprite(_enemyData.HunterSprite)
+            return new GameObject(NameManager.NAME_HUNTER)
+                .AddSprite(_enemyData.HunterData.HunterSprite)
                 .AddRigidbody2D(_mass)
-                .AddPoligonCollider2D()
-                .AddComponent<Hunter>();
-
-            enemy.Health = hp;
-            return enemy;
+                .AddPoligonCollider2D();
         }
     }
 }
