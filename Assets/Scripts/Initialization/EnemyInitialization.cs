@@ -20,22 +20,6 @@ namespace Asteroids
             return enemy;
         }
 
-        //private Transform _target;
-        //private Hunter _hunter;
-
-        // public EnemyInitialization(Transform target, EnemyData enemyData, IEnemyFactory enemyFactory, IHealth health)
-        // {
-        //     _target = target;
-        //     _enemyData = ScriptableObject.CreateInstance<EnemyData>();
-        //
-        // }
-
-        // public void Execute(float deltaTime)
-        // {
-        // Vector3 direction = (_target.position - _hunter.transform.localPosition).normalized;
-        // var speed = deltaTime * _enemyData.HunterSpeed;
-        // _hunter.transform.position += direction * speed;
-        // }
 
     }
 }

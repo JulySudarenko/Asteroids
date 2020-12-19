@@ -26,7 +26,6 @@ namespace Asteroids
                 _rootPool = new
                     GameObject(POOL_ENEMIES).transform;
             }
-
             _asteroidInitialization = new EnemyInitialization(new AsteroidFactory(enemyData), enemyData.AsteroidData);
             _cometInitialization = new EnemyInitialization(new CometFactory(enemyData), enemyData.CometData);
             _hunterInitialization = new EnemyInitialization(new HunterFactory(enemyData), enemyData.HunterData);
