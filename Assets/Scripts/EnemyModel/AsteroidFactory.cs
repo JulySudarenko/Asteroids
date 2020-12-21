@@ -13,7 +13,6 @@ namespace Asteroids
             _enemyData = enemyData;
         }
 
-
         public GameObject CreateEnemy()
         {
             return new GameObject(NameManager.NAME_ASTEROID)

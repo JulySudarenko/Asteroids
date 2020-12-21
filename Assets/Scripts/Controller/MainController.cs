@@ -33,6 +33,9 @@ namespace Asteroids
                 _spaceshipInitialization.GetTransform());
  
             var platform = new PlatformFactory().Create(Application.platform);
+
+
+            
         }
 
         private void FixedUpdate()

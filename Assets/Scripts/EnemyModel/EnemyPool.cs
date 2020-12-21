@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace Asteroids
 {
-    public sealed class EnemyPool
+    public sealed class EnemyPool : IEnemyPool
     {
         private readonly Dictionary<string, HashSet<Rigidbody2D>> _enemyPool;
         private EnemyInitialization _asteroidInitialization;
