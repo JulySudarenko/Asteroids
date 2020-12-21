@@ -14,13 +14,13 @@ namespace Asteroids
         private EnemyInitialization _asteroidInitialization;
         private EnemyInitialization _cometInitialization;
         private EnemyInitialization _hunterInitialization;
-        private readonly IPoolSize _capacityPool;
+        private EnemyData _data;
         private Transform _rootPool;
 
-        public EnemyPool(IPoolSize poolSize, EnemyData enemyData)
+        public EnemyPool(EnemyData enemyData)
         {
             _enemyPool = new Dictionary<string, HashSet<Rigidbody2D>>();
-            _capacityPool = poolSize;
+            _data = enemyData;
             if (!_rootPool)
             {
                 _rootPool = new
@@ -37,13 +37,13 @@ namespace Asteroids
             switch (type)
             {
                 case NAME_ASTEROID:
-                    result = ActivateEnemy(GetListEnemies(type), _asteroidInitialization, _capacityPool.PoolSize);
+                    result = ActivateEnemy(GetListEnemies(type), _asteroidInitialization, _data.AsteroidData.PoolSize);
                     break;
                 case NAME_COMET:
-                    result = ActivateEnemy(GetListEnemies(type), _cometInitialization, _capacityPool.PoolSize);
+                    result = ActivateEnemy(GetListEnemies(type), _cometInitialization, _data.CometData.PoolSize);
                     break;
                 case NAME_HUNTER:
-                    result = ActivateEnemy(GetListEnemies(type), _hunterInitialization, _capacityPool.PoolSize);
+                    result = ActivateEnemy(GetListEnemies(type), _hunterInitialization, _data.HunterData.PoolSize);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type,

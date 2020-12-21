@@ -15,4 +15,5 @@ MonoBehaviour:
   CometSprite: {fileID: 21300000, guid: d6220a8269060814b86f9a0969bca95d, type: 3}
   _cometForce: 7
   _cometHealth: 50
+  _cometDamage: 10
   _cometPoolSize: 5
