@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 408c4c0db04e9b843ae76cc04a4ffa24, type: 3}
-  m_Name: Spaceship
+  m_Name: SpaceshipData
   m_EditorClassIdentifier: 
-  SpaceshipTransform: {fileID: 225364824941403263, guid: 4e7f2e96960e3e840a2be0dea6738029,
+  SpaceshipTransform: {fileID: 1767768342129118246, guid: 3823cae796dbc75469a86c1205dba366,
     type: 3}
-  SpaceshipPrefab: {fileID: 0}
+  SpaceshipSprite: {fileID: 21300000, guid: 38ceccf2cc1310c4ca6fb20a2bc0ee45, type: 3}
   _spaceshipHealth: 100
-  _spaceshipSpeed: 50
+  _spaceshipSpeed: 10
+  _spaceshipAcceleration: 20

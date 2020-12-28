@@ -58,12 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Data\Data.cs" />
-     <Compile Include="Assets\Scripts\Data\SpaceshipData.cs" />
-     <Compile Include="Assets\Scripts\SpaceshipModel\ISpaceshipFactory.cs" />
-     <Compile Include="Assets\Scripts\SpaceshipModel\ISpaceshipHealth.cs" />
-     <Compile Include="Assets\Scripts\SpaceshipModel\ISpaceshipSpeed.cs" />
-     <Compile Include="Assets\Scripts\SpaceshipModel\SpaceshipFactory.cs" />
+     <Compile Include="Assets\Resources\Data\BulletData.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/geekbrains.ru/Projects/Unity/Asteroids/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -613,6 +608,12 @@
  <Reference Include="System.Xml.Serialization">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Asteroids.csproj">
+      <Project>{BF0C6C9E-C0F4-A9CB-7218-2D2EFDB4EEFF}</Project>
+      <Name>Asteroids</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
