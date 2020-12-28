@@ -1,12 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 
 namespace Asteroids
 {
     public class HealthKeeper
     {
-        public Action<float> DamageDone;
-        public Action<float> FirstAidReceived;
         private IHealth _maxHealth;
         private float _spaceshipHealth;
 
@@ -16,9 +15,31 @@ namespace Asteroids
         {
             _maxHealth = maxHealth;
             _spaceshipHealth = _maxHealth.Health;
+        }
 
-            DamageDone = CauseDamage;
-            FirstAidReceived = Heal;
+        public void DetermineContact(GameObject gameObject)
+        {
+            switch (gameObject.name)
+            {
+                case NameManager.NAME_ASTEROID:
+                    CauseDamage(10.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                case NameManager.NAME_COMET:
+                    CauseDamage(5.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                case NameManager.NAME_HUNTER:
+                    CauseDamage(7.0f);
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                case NameManager.NAME_AMMUNITION:
+                    Debug.Log(_spaceshipHealth);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameObject), gameObject,
+                        "Не предусмотрен в программе");
+            }
         }
 
         private void CauseDamage(float point)
@@ -41,7 +62,7 @@ namespace Asteroids
 
         private void Destroy()
         {
-            //тут будет событие. Пока не делали вьюшку.
+            Debug.Log("Player is dead");
         }
     }
 }

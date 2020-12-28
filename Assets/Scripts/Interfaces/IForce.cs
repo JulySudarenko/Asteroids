@@ -2,6 +2,6 @@
 {
     public interface IForce
     {
-        float BulletForce { get; }
+        float Force { get; }
     }
 }

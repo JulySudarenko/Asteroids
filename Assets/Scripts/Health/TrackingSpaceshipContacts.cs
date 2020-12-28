@@ -1,33 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Asteroids
 {
     public class TrackingSpaceshipContacts : MonoBehaviour
     {
-        private const string ASTEROID = "Asteroid";
-        private const string FIRSTAID = "FirstAid";
-        private HealthKeeper _healthKeeper;
-        private float _damagePoints = 2.0f; // взять у астероида
-        private float _healPoints = 5.0f; //взять у аптечки
+        public event Action<GameObject> SpaceshipCollisionHappend;
 
-        public TrackingSpaceshipContacts(HealthKeeper healthKeeper)
-        {
-            _healthKeeper = healthKeeper;
-        }
-        
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log("Contact");
-            if (other.collider.CompareTag(ASTEROID))
-            {
-                _healthKeeper.DamageDone?.Invoke(_damagePoints);
-            }
-
-            if (other.collider.CompareTag(FIRSTAID))
-            {
-                _healthKeeper.FirstAidReceived?.Invoke(_healPoints);
-            }
+            Debug.Log($"Spaceship contact {other.collider.gameObject}");
+            SpaceshipCollisionHappend?.Invoke(other.collider.gameObject);
         }
     }
 }

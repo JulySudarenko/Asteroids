@@ -12,9 +12,10 @@ namespace Asteroids
             _bulletFactory = bulletFactory;
         }
 
-        public GameObject GetBullet(Transform transform)
+        public Rigidbody2D GetBullet()
         {
-            return _bulletFactory.CreateBullet().AddTransform(transform);
+            var bullet = _bulletFactory.CreateBullet().GetComponent<Rigidbody2D>();
+            return bullet;
         }
     }
 }

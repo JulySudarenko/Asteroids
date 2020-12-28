@@ -5,40 +5,45 @@ namespace Asteroids
 {
     public class MainController : MonoBehaviour
     {
-        [SerializeField] private AsteroidsData _asteroidsData;
-        private Camera _camera;
-
-        private ShotPoint _shotPoint;
+        [SerializeField] private Data _data;
+        private GameCamera _camera;
 
         private SpaceshipInitialization _spaceshipInitialization;
-        private InputMoveController _inputMoveController;
-        private InputAttackController _inputAttackController;
+        private AttackInitialization _attackInitialization;
+        private EnemyPoolInitialization _enemyPoolInitialization;
+        private MovementInitialization _movementInitialization;
+
 
         private void Awake()
         {
-            var spaceshipFactory = new SpaceshipFactory(_asteroidsData.SpaceshipData);
-            var healthKeeper = new HealthKeeper(_asteroidsData.SpaceshipData);
+            var spaceshipFactory = new SpaceshipFactory(_data.SpaceshipData);
+            var healthKeeper = new HealthKeeper(_data.SpaceshipData);
             _spaceshipInitialization = new SpaceshipInitialization(spaceshipFactory, healthKeeper);
-            _camera = Camera.main;
+            _camera = new GameCamera(_spaceshipInitialization.GetTransform());
+            var space = new World(_spaceshipInitialization.GetTransform(), _data.SpaceshipData);
+            space.CreateWorld();
 
-            var bulletFactory = new BulletFactory(_asteroidsData.BulletData);
-            _inputAttackController = new InputAttackController(bulletFactory, _asteroidsData.BulletData);
+            _movementInitialization = new MovementInitialization(_spaceshipInitialization.GetTransform(),
+                _data.SpaceshipData, _camera.WorldPosition);
 
-            var moveTransform = new AccelerationMove(_spaceshipInitialization.GetTransform(),
-                _asteroidsData.SpaceshipData,
-                _asteroidsData.SpaceshipData);
-            var rotation = new RotationSpaceship(_spaceshipInitialization.GetTransform());
-            var movement = new SpaceshipMovement(moveTransform, rotation, _asteroidsData.SpaceshipData);
-            _inputMoveController = new InputMoveController(movement);
-            _shotPoint = new ShotPoint(_spaceshipInitialization.GetTransform(), _asteroidsData.BulletData);
+            _attackInitialization = new AttackInitialization(_spaceshipInitialization.GetTransform(),
+                _data.SpaceshipData, _data.BulletData);
+
+            _enemyPoolInitialization = new EnemyPoolInitialization(_data.EnemyData, 
+                _spaceshipInitialization.GetTransform());
+ 
+            var platform = new PlatformFactory().Create(Application.platform);
+        }
+
+        private void FixedUpdate()
+        {
+            _movementInitialization.FixedExecute(Time.deltaTime);
         }
 
         private void Update()
         {
-            var direction = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
-            _inputMoveController.CheckInput(direction);
-
-            _inputAttackController.Shoot(_shotPoint.GetPoint(), direction);
+            _attackInitialization.Execute(Time.deltaTime);
+            _enemyPoolInitialization.Execute(Time.deltaTime);
         }
     }
 }

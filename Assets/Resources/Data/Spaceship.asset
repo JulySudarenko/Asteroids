@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 408c4c0db04e9b843ae76cc04a4ffa24, type: 3}
-  m_Name: SpaceshipData
+  m_Name: Spaceship
   m_EditorClassIdentifier: 
   SpaceshipTransform: {fileID: 1767768342129118246, guid: 3823cae796dbc75469a86c1205dba366,
     type: 3}
   SpaceshipSprite: {fileID: 21300000, guid: 38ceccf2cc1310c4ca6fb20a2bc0ee45, type: 3}
+  _stars: {fileID: 499162, guid: e9a6501da28be2b4986e8ba47c2e017c, type: 3}
+  _shotPoint: {fileID: 3865157292648359456, guid: 8e1ba607e3805234c995b5693d81c4fa,
+    type: 3}
   _spaceshipHealth: 100
   _spaceshipSpeed: 10
   _spaceshipAcceleration: 20
