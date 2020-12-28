@@ -7,7 +7,8 @@ namespace Asteroids
     {
         [SerializeField] private Data _data;
         private GameCamera _camera;
-
+        private CollisionCenter _collisionCenter;
+        
         private SpaceshipInitialization _spaceshipInitialization;
         private AttackInitialization _attackInitialization;
         private EnemyPoolInitialization _enemyPoolInitialization;
@@ -21,22 +22,22 @@ namespace Asteroids
             _camera = new GameCamera(_spaceshipInitialization.GetTransform());
             var space = new World(_spaceshipInitialization.GetTransform(), _data.SpaceshipData);
             space.CreateWorld();
-
+        
             _movementInitialization = new MovementInitialization(_spaceshipInitialization.GetTransform(),
                 _data.SpaceshipData, _camera.WorldPosition);
-
+        
             _attackInitialization = new AttackInitialization(_spaceshipInitialization.GetTransform(),
                 _data.SpaceshipData, _data.BulletData);
-
+        
             _enemyPoolInitialization = new EnemyPoolInitialization(_data.EnemyData,
                 _spaceshipInitialization.GetTransform());
         }
-
+        
         private void FixedUpdate()
         {
             _movementInitialization.FixedExecute(Time.deltaTime);
         }
-
+        
         private void Update()
         {
             _attackInitialization.Execute(Time.deltaTime);

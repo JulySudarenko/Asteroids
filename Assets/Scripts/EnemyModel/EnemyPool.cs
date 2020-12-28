@@ -47,7 +47,7 @@ namespace Asteroids
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type,
-                        "Не предусмотрен в программе");
+                        "Unidentified object detected");
             }
         
             return result;

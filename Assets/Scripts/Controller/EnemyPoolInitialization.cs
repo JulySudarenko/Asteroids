@@ -12,7 +12,8 @@ namespace Asteroids
         private EnemyData _data;
         private Rigidbody2D _hunter;
         private Transform _target;
-        private EnemyTimer _timer;
+        private EnemyTimer _asteroidTimer;
+        private EnemyTimer _cometTimer;
 
 
         public EnemyPoolInitialization(EnemyData enemyData, Transform target)
@@ -26,16 +27,17 @@ namespace Asteroids
             _hunter.transform.position = GetStartPoint();
             _hunter.gameObject.SetActive(true);
             
-            _timer = new EnemyTimer(INTERVAL);
-            _timer = new EnemyTimer(INTERVAL);
-            _timer.MakeAndPushEnemy += InitializeEnemy;
+            _asteroidTimer = new EnemyTimer(INTERVAL);
+            _cometTimer = new EnemyTimer(INTERVAL);
+            _asteroidTimer.MakeAndPushEnemy += InitializeEnemy;
+            _cometTimer.MakeAndPushEnemy += InitializeEnemy;
         }
 
 
         public void Execute(float deltaTime)
         {
-            _timer.TimeCounter(NAME_ASTEROID);
-            _timer.TimeCounter(NAME_COMET);
+            _asteroidTimer.TimeCounter(NAME_ASTEROID);
+            _cometTimer.TimeCounter(NAME_COMET);
             StartHunt(_hunter, deltaTime);
         }
 
@@ -69,7 +71,8 @@ namespace Asteroids
 
         public void Cleanup()
         {
-            _timer.MakeAndPushEnemy -= InitializeEnemy;
+            _asteroidTimer.MakeAndPushEnemy -= InitializeEnemy;
+            _cometTimer.MakeAndPushEnemy -= InitializeEnemy;
         }
     }
 }
