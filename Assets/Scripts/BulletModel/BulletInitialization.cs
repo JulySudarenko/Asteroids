@@ -6,19 +6,19 @@ namespace Asteroids
     public class BulletInitialization
     {
         private IBulletFactory _bulletFactory;
-        private CollisionCenter _collisionCenter;
+        private ContactObjectsCenter _contactObjectsCenter;
 
         public BulletInitialization(IBulletFactory bulletFactory)
         {
             _bulletFactory = bulletFactory;
-            _collisionCenter = new CollisionCenter();
+            _contactObjectsCenter = new ContactObjectsCenter();
         }
 
         public Rigidbody2D GetBullet()
         {
             var bullet = _bulletFactory.CreateBullet().GetComponent<Rigidbody2D>();
             GameObject o = bullet.gameObject;
-            _collisionCenter.DependencyInjectionHealth(o);
+            _contactObjectsCenter.AddContactInfo(o);
             return bullet;
         }
     }

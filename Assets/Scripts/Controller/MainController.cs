@@ -7,7 +7,7 @@ namespace Asteroids
     {
         [SerializeField] private Data _data;
         private GameCamera _camera;
-        private CollisionCenter _collisionCenter;
+        private ContactObjectsCenter _contactObjectsCenter;
         
         private SpaceshipInitialization _spaceshipInitialization;
         private AttackInitialization _attackInitialization;

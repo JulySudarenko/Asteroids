@@ -6,19 +6,21 @@ using static Asteroids.NameManager;
 
 namespace Asteroids
 {
-    public class CollisionCenter
+    public class ContactObjectsCenter : IContactCenter
     {
-        public readonly Dictionary<int, GameObject> ContactsInfo;
+        private readonly Dictionary<int, GameObject> _contactInfo;
 
-        public CollisionCenter()
+        public ContactObjectsCenter()
         {
-            ContactsInfo = new Dictionary<int, GameObject>();
+            _contactInfo = new Dictionary<int, GameObject>();
         }
 
-        public void DependencyInjectionHealth(GameObject gameObject)
+        public Dictionary<int, GameObject> ContactInfo => _contactInfo;
+
+        public void AddContactInfo(GameObject gameObject)
         {
             Debug.Log($"{gameObject.GetInstanceID()} {gameObject} add to list");
-            ContactsInfo.Add(gameObject.GetInstanceID(), gameObject);
+            _contactInfo.Add(gameObject.GetInstanceID(), gameObject);
         }
 
         private void ReallocateCollisionInfo(GameObject gameObject, GameObject collisionObject)

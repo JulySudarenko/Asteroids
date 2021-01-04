@@ -1,10 +1,12 @@
-﻿namespace TheFifthLessonTasks.Bridge
+﻿using UnityEngine;
+
+namespace TheFifthLessonTasks.Bridge
 {
     internal sealed class Infantry : IMove
     {
         public void Move()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Infantry is moving");
         }
     }
 }

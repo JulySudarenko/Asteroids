@@ -10,7 +10,7 @@ namespace Asteroids
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log($"Spaceship contact {other.collider.gameObject.name}");
+            Debug.Log($"Сontact {other.collider.gameObject.name}");
             CollisionHappend?.Invoke(gameObject.GetInstanceID(), other.collider.GetInstanceID());
         }
     }

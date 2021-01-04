@@ -3,7 +3,7 @@
 
 namespace TheFifthLessonTasks.Adapter
 {
-    internal sealed class Example : MonoBehaviour
+    internal sealed class ExampleAdapter : MonoBehaviour
     {
         private Camera _camera;
         private IFire _fire;

@@ -17,7 +17,7 @@ namespace Asteroids
             _spaceship.AddComponent<TrackingSpaceshipContacts>();
             _health = health;
             _contacts = _spaceship.GetComponent<TrackingSpaceshipContacts>();
-            _contacts.SpaceshipCollisionHappend += _health.DetermineContact;
+            //_contacts.SpaceshipCollisionHappend += _health.DetermineContact;
         }
 
         public Transform GetTransform()
@@ -28,7 +28,7 @@ namespace Asteroids
 
         public void Cleanup()
         {
-            _contacts.SpaceshipCollisionHappend -= _health.DetermineContact;
+            //_contacts.SpaceshipCollisionHappend -= _health.DetermineContact;
         }
     }
 }
