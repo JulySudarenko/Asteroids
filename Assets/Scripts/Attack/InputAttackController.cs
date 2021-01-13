@@ -5,7 +5,7 @@ using static Asteroids.NameManager;
 
 namespace Asteroids
 {
-    public class InputAttackController
+    public class InputAttackController : IAttack
     {
         private BulletPool _bulletPool;
         private IForce _force;

@@ -61,7 +61,9 @@
      <Compile Include="Assets\Scripts\Assistants\AxisManager.cs" />
      <Compile Include="Assets\Scripts\Assistants\BuildAssistant.cs" />
      <Compile Include="Assets\Scripts\Assistants\NameManager.cs" />
+     <Compile Include="Assets\Scripts\Attack\AttackLock.cs" />
      <Compile Include="Assets\Scripts\Attack\InputAttackController.cs" />
+     <Compile Include="Assets\Scripts\Attack\InputAttackControllerProxy.cs" />
      <Compile Include="Assets\Scripts\Attack\ShotPoint.cs" />
      <Compile Include="Assets\Scripts\BulletModel\BulletFactory.cs" />
      <Compile Include="Assets\Scripts\BulletModel\BulletInitialization.cs" />
@@ -98,6 +100,7 @@
      <Compile Include="Assets\Scripts\Health\TrackingContacts.cs" />
      <Compile Include="Assets\Scripts\Health\TrackingSpaceshipContacts.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IAcceleration.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IAttack.cs" />
      <Compile Include="Assets\Scripts\Interfaces\ICleanup.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IController.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IDamage.cs" />
