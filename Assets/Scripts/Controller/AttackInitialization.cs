@@ -13,8 +13,8 @@ namespace Asteroids
         {
             var barrel = new ShotPoint(transform, spaceshipData);
             _shotPoint = barrel.GetShotPoint();
+            
             var bulletFactory = new BulletFactory(bulletData);
-
             _inputAttackController = new InputAttackController(bulletFactory, bulletData, bulletData);
         }
 

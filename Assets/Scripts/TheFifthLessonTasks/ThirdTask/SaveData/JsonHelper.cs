@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace TheFifthLessonTasks.ThirdTask
@@ -11,23 +12,10 @@ namespace TheFifthLessonTasks.ThirdTask
             return wrapper.Units;
         }
 
-        public static string ToJson<T>(T[] array)
+        public static string FixJson(string value)
         {
-            Wrapper<T> wrapper = new Wrapper<T>();
-            wrapper.Units = array;
-            return JsonUtility.ToJson(wrapper);
-        }
-
-        public static string ToJson<T>(T[] array, bool prettyPrint)
-        {
-            Wrapper<T> wrapper = new Wrapper<T>();
-            wrapper.Units = array;
-            return JsonUtility.ToJson(wrapper, prettyPrint);
-        }
-        
-        public static string FixJson(string value) 
-        {
-            value = "{\"Units\":" + value + "}";
+            //value = "{\"Units\":" + value + "}";
+            value = String.Concat("{\"Units\":", value, "}");
             return value;
         }
 

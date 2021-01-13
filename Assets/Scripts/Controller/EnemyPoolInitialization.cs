@@ -5,7 +5,7 @@ using static Asteroids.SpawnPlaces;
 
 namespace Asteroids
 {
-    public class EnemyPoolInitialization : IExecute, ICleanup
+    public class EnemyPoolInitialization : IIinitialize, IExecute, ICleanup
     {
         private const float INTERVAL = 5.0f;
         
@@ -20,7 +20,10 @@ namespace Asteroids
         {
             _data = enemyData;
             _target = target;
+        }
 
+        public void Initialize()
+        {
             ServiceLocator.SetService<IEnemyPool>(new EnemyPool(_data));
 
             _hunter = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_HUNTER);

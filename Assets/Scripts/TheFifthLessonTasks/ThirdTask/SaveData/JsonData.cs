@@ -9,17 +9,9 @@ namespace TheFifthLessonTasks.ThirdTask
     {
         public List<T> Load(string path = null)
         {
-            var loadSaveList = new List<T>();
-
             var str = File.ReadAllText(path);
             string jsonString = FixJson(str);
-            // Debug.Log(str);
-            // Debug.Log(jsonString);
-
-            //return JsonHelper.FromJson<SavedData>(jsonString);
             return JsonHelper.FromJson<T>(jsonString).ToList();
         }
-        
-
     }
 }
