@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using static Asteroids.BuildAssistant;
 
 namespace TheFifthLessonTasks.ThirdTask
 {
-    public sealed class InfantryFactory : IUnit
+    public sealed class InfantryFactory : IFactory
     {
-        public GameObject CreateUnit()
+        public const string NAME = "infantry";
+
+        public GameObject CreateFactory()
         {
-            return GameObject.CreatePrimitive(PrimitiveType.Cube);
+            return GameObject.CreatePrimitive(PrimitiveType.Cube).AddName(NAME);
         }
     }
 }

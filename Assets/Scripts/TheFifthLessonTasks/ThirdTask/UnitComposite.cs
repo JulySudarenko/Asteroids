@@ -4,21 +4,29 @@ namespace TheFifthLessonTasks.ThirdTask
 {
     public class UnitComposite
     {
-        private List<IUnit> _units = new List<IUnit>();
-
+        public List<IUnit> Units = new List<IUnit>();
+    
         public void AddUnit(IUnit unit)
         {
-            _units.Add(unit);
+            Units.Add(unit);
+        }
+
+        public void AddManyUnits(IUnit[] units)
+        {
+            foreach (var u in units)
+            {
+                Units.Add(u);
+            }
         }
 
         public void RemoveUnit(IUnit unit)
         {
-            _units.Remove(unit);
+            Units.Remove(unit);
         }
 
         public void GetUnit()
         {
-            foreach (var unit in _units)
+            foreach (var unit in Units)
             {
                 unit.CreateUnit();
             }

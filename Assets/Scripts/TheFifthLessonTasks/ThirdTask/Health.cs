@@ -2,13 +2,16 @@
 {
     public class Health
     {
-        private float _max;
-        private float _current;
+        private float _health;
 
-        public Health(float max, float current)
+        public Health(float health)
         {
-            _max = max;
-            _current = current;
+            _health = health;
+        }
+
+        public override string ToString()
+        {
+            return $"{_health}";
         }
     }
 }

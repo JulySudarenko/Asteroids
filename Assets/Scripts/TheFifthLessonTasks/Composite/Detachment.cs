@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-
-
+   
 namespace TheFifthLessonTasks.Composite
 {
     internal sealed class Detachment : IAttack
