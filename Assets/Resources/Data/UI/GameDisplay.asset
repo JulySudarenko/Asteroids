@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64882acf03ed47aaaef5125177bba8eb, type: 3}
+  m_Name: GameDisplay
+  m_EditorClassIdentifier: 
+  GamePanel: {fileID: 7950920944639983543, guid: 15fcfe80019def74a9b7f5605b9e2e92,
+    type: 3}
+  HealthPoints: {fileID: 4367047011311966702, guid: af83caa7c4043bc4ea8dacdc957f5e88,
+    type: 3}
+  GamePoints: {fileID: 5980588093243860077, guid: 9f7e1c704c2b3b4488aded179b20bb19,
+    type: 3}
+  HunterPoints: {fileID: 4007659042481169746, guid: 080d0ae6c2d8d994980270a694a723e0,
+    type: 3}

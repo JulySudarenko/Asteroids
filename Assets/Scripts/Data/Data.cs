@@ -1,5 +1,5 @@
-﻿using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
+using static Asteroids.Extentions;
 
 
 namespace Asteroids
@@ -44,8 +44,5 @@ namespace Asteroids
                 return _enemyData;
             }
         }
-
-        private T Load<T>(string resourcesPath) where T : Object =>
-            Resources.Load<T>(Path.ChangeExtension(resourcesPath, null));
     }
 }

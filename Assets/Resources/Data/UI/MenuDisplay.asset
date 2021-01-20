@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c0df9144644d1a8f27face6cc05ec0, type: 3}
+  m_Name: MenuDisplay
+  m_EditorClassIdentifier: 
+  MenuPanel: {fileID: 7950920944639983543, guid: 15fcfe80019def74a9b7f5605b9e2e92,
+    type: 3}
+  PlayButton: {fileID: 627207670119512883, guid: 1f50c5b6cafefc24eb5be7fe2bd2a81e,
+    type: 3}
+  QuitButton: {fileID: 4804789101422595260, guid: 4f2357cde1517c4448560f89679f9c98,
+    type: 3}

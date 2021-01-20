@@ -3,18 +3,18 @@
     public sealed class Facade
     {
         private Controllers _controllers;
-        private WorldInitialization _worldInitialization;
 
-        public Facade(Data data)
+        public Facade(Data data, UIData uiData)
         {
-            _worldInitialization = new WorldInitialization(data.SpaceshipData);
+            var worldInitialization = new WorldInitialization(data.SpaceshipData);
 
             _controllers = new Controllers();
-            _controllers.Add(new MovementInitialization(_worldInitialization.Spaceship, data.SpaceshipData,
-                _worldInitialization.Camera));
-            _controllers.Add(new AttackInitialization(_worldInitialization.Spaceship, data.SpaceshipData,
+            _controllers.Add(new MovementInitialization(worldInitialization.Spaceship, data.SpaceshipData,
+                worldInitialization.Camera));
+            _controllers.Add(new AttackInitialization(worldInitialization.Spaceship, data.SpaceshipData,
                 data.BulletData));
-            _controllers.Add(new EnemyPoolInitialization(data.EnemyData, _worldInitialization.Spaceship));
+            _controllers.Add(new EnemyPoolInitialization(data.EnemyData, worldInitialization.Spaceship));
+            _controllers.Add(new DisplayInitialization(uiData));
         }
 
         public void FacadeInitialize() => _controllers.Initialize();

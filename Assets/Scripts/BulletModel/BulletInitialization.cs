@@ -17,8 +17,7 @@ namespace Asteroids
         public Rigidbody2D GetBullet()
         {
             var bullet = _bulletFactory.CreateBullet().GetComponent<Rigidbody2D>();
-            GameObject o = bullet.gameObject;
-            _contactObjectsCenter.AddContactInfo(o);
+            _contactObjectsCenter.AddContactInfo(bullet.gameObject);
             return bullet;
         }
     }

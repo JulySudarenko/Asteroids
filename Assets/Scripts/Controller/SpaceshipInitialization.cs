@@ -13,9 +13,9 @@ namespace Asteroids
         public SpaceshipInitialization(ISpaceshipFactory spaceshipFactory, HealthKeeper health)
         {
             _spaceshipFactory = spaceshipFactory;
+            _health = health;
             _spaceship = _spaceshipFactory.CreateSpaceship();
             _spaceship.AddComponent<TrackingSpaceshipContacts>();
-            _health = health;
             _contacts = _spaceship.GetComponent<TrackingSpaceshipContacts>();
             //_contacts.SpaceshipCollisionHappend += _health.DetermineContact;
         }
@@ -23,7 +23,6 @@ namespace Asteroids
         public Transform GetTransform()
         {
             return _spaceship.transform;
-            
         }
 
         public void Cleanup()

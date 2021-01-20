@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static Asteroids.NameManager;
+using static Asteroids.TimeRemainingExtensions;
 using Object = UnityEngine.Object;
 
 
@@ -10,13 +11,19 @@ namespace Asteroids
 {
     public sealed class BulletPool
     {
+        private Action _reloadingBullet;
+        
         private readonly Dictionary<string, HashSet<Rigidbody2D>> _bulletPool;
         private BulletInitialization _bulletInitialization;
-        private readonly int _capacityPool;
+        private ITimeRemaining _timeRemaining;
         private Transform _rootPool;
+        private readonly int _capacityPool;
+
         
         public BulletPool(BulletFactory bulletFactory, int capacityPool)
         {
+            _timeRemaining = new TimeRemaining(_reloadingBullet, 5);
+            _reloadingBullet += ReloadBullet;
             _bulletPool = new Dictionary<string, HashSet<Rigidbody2D>>();
             _bulletInitialization = new BulletInitialization(bulletFactory);
             _capacityPool = capacityPool;
@@ -57,6 +64,7 @@ namespace Asteroids
                 {
                     var instantiate = _bulletInitialization.GetBullet();
                     ReturnToPool(instantiate.transform);
+                    _timeRemaining.AddTimeRemaining();
                     bullets.Add(instantiate);
                 }
                 GetBullet(bullets);
@@ -77,6 +85,11 @@ namespace Asteroids
         public void RemovePool()
         {
             Object.Destroy(_rootPool.gameObject);
+        }
+
+        private void ReloadBullet()
+        {
+            Debug.Log("Time is over.");
         }
     }
 }
