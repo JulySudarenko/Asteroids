@@ -21,3 +21,4 @@ MonoBehaviour:
   _spaceshipHealth: 100
   _spaceshipSpeed: 10
   _spaceshipAcceleration: 20
+  _spaceshipPower: 100

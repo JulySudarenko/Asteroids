@@ -11,6 +11,7 @@
 
             _controllers = new Controllers();
             _controllers.Add(new TimeRemainingController());
+            _controllers.Add(worldInitialization);
             _controllers.Add(new MovementInitialization(worldInitialization.Spaceship, data.SpaceshipData,
                 worldInitialization.Camera));
             _controllers.Add(new AttackInitialization(worldInitialization.Spaceship, data.SpaceshipData,

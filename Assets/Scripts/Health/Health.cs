@@ -13,18 +13,24 @@ namespace Asteroids
             Current = current;
         }
         
-        public void CauseDamage(float power)
+        public void CauseSpaceshipDamage(float power)
         {
             Current -= power;
             if (Current <= 0)
             {
-                Destroy();
+                Debug.Log("Player is dead");
             }
+            Debug.Log($"Spaceship health {Current}");
         }
 
-        private void Destroy()
+        public void CauseEnemyDamage(Transform transform, float power)
         {
-            Debug.Log("Player is dead");
+            Current -= power;
+            if (Current <= 0)
+            {
+                Debug.Log($"{transform.name} is dead.");
+            }
+            Debug.Log($"{transform.name} health {Current}");
         }
     }
 }

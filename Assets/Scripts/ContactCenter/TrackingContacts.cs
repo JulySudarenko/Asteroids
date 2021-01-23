@@ -10,7 +10,6 @@ namespace Asteroids
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log($"{gameObject.name} contact {other.collider.gameObject.name}");
             CollisionHappend?.Invoke(gameObject.GetInstanceID(), other.collider.gameObject.GetInstanceID());
         }
     }

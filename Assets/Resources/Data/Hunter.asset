@@ -15,7 +15,7 @@ MonoBehaviour:
   HunterSprite: {fileID: 21300000, guid: 38ceccf2cc1310c4ca6fb20a2bc0ee45, type: 3}
   _hunterSpeed: 3
   _hunterHealth: 200
-  _hunterPower: 5
+  _hunterPower: 50
   _hunterPoints: 2000
   _hunterStopDistance: 2
   _hunterPoolSize: 1

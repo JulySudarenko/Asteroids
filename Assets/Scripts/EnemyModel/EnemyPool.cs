@@ -14,10 +14,11 @@ namespace Asteroids
         private EnemyInitialization _asteroidInitialization;
         private EnemyInitialization _cometInitialization;
         private EnemyInitialization _hunterInitialization;
+        private ContactCenter _contactCenter;
         private EnemyData _data;
         private Transform _rootPool;
 
-        public EnemyPool(EnemyData enemyData)
+        public EnemyPool(EnemyData enemyData, ContactCenter contactCenter)
         {
             _enemyPool = new Dictionary<string, HashSet<Rigidbody2D>>();
             _data = enemyData;
@@ -29,6 +30,8 @@ namespace Asteroids
             _asteroidInitialization = new EnemyInitialization(new AsteroidFactory(enemyData), enemyData.AsteroidData);
             _cometInitialization = new EnemyInitialization(new CometFactory(enemyData), enemyData.CometData);
             _hunterInitialization = new EnemyInitialization(new HunterFactory(enemyData), enemyData.HunterData);
+
+            _contactCenter = contactCenter;
         }
 
         public Rigidbody2D GetEnemy(string type)
@@ -67,6 +70,8 @@ namespace Asteroids
                 {
                     var instantiate = initialize.GetEnemy();
                     ReturnToPool(instantiate.transform);
+                    _contactCenter.AddContactInfo(instantiate.gameObject);
+                    _contactCenter.EnemyHit += ReturnToPool;
                     enemies.Add(instantiate);
                 }
             
@@ -77,7 +82,7 @@ namespace Asteroids
             return enemy;
         }
 
-        public void ReturnToPool(Transform transform)
+        private void ReturnToPool(Transform transform)
         {
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;

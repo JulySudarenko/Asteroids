@@ -1,23 +1,20 @@
 ﻿using UnityEngine;
 using static Asteroids.NameManager;
 using static Asteroids.SpawnPlaces;
-using static Asteroids.BuildAssistant;
-
 
 namespace Asteroids
 {
-    public class EnemyPoolInitialization : IIinitialize, IExecute, ICleanup
+    public class EnemyPoolInitialization : IIinitialize, IExecute
     {
-        private const float INTERVAL = 5.0f;
+        private float AsteroidAddTime = 4.0f;
+        private float CometAddTime = 3.0f;
+        private float HunterAddTime = 10.0f;
 
         private EnemyData _data;
         private Rigidbody2D _hunter;
         private Transform _target;
         private ContactCenter _contactCenter;
-        private TrackingContacts _contact;
-        private EnemyTimer _asteroidTimer;
-        private EnemyTimer _cometTimer;
-
+        private ITimeRemaining _timeRemaining;
 
         public EnemyPoolInitialization(EnemyData enemyData, Transform target, ContactCenter contactCenter)
         {
@@ -28,31 +25,32 @@ namespace Asteroids
 
         public void Initialize()
         {
-            ServiceLocator.SetService<IEnemyPool>(new EnemyPool(_data));
+            ServiceLocator.SetService<IEnemyPool>(new EnemyPool(_data, _contactCenter));
 
-            _hunter = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_HUNTER);
-            AddContactSystem(_hunter.gameObject);
-            _hunter.gameObject.SetActive(true);
-
-            _asteroidTimer = new EnemyTimer(INTERVAL);
-            _cometTimer = new EnemyTimer(INTERVAL);
-            _asteroidTimer.MakeAndPushEnemy += InitializeEnemy;
-            _cometTimer.MakeAndPushEnemy += InitializeEnemy;
+            ActivateHunter();
+            _timeRemaining = new TimeRemaining(InitializeAsteroid, AsteroidAddTime, true);
+            _timeRemaining.AddTimeRemaining();
+            _timeRemaining = new TimeRemaining(InitializeComet, CometAddTime, true);
+            _timeRemaining.AddTimeRemaining();
         }
-
 
         public void Execute(float deltaTime)
         {
-            _asteroidTimer.TimeCounter(NAME_ASTEROID);
-            _cometTimer.TimeCounter(NAME_COMET);
             StartHunt(_hunter, deltaTime);
         }
 
-        private void InitializeEnemy(string name)
+        private void InitializeAsteroid()
         {
-            var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(name);
+            var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_ASTEROID);
             enemy.transform.position = GetStartPoint();
-            AddContactSystem(enemy.gameObject);
+            enemy.gameObject.SetActive(true);
+            enemy.AddForce((_target.position - enemy.transform.position) * _data.AsteroidData.Force);
+        }
+        
+        private void InitializeComet()
+        {
+            var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_COMET);
+            enemy.transform.position = GetStartPoint();
             enemy.gameObject.SetActive(true);
             enemy.AddForce((_target.position - enemy.transform.position) * _data.CometData.Force);
         }
@@ -64,32 +62,15 @@ namespace Asteroids
 
         public void StartHunt(Rigidbody2D enemy, float deltaTime)
         {
-            if ((enemy.transform.localPosition - _target.position).sqrMagnitude >=
-                _data.HunterData.HunterStopDistance * _data.HunterData.HunterStopDistance)
-            {
                 Vector3 direction = (_target.position - enemy.transform.localPosition).normalized;
                 var speed = deltaTime * _data.HunterData.Speed;
                 enemy.transform.position += direction * speed;
-            }
-            else
-            {
-                _hunter.velocity = Vector2.zero;
-            }
         }
 
-        private void AddContactSystem(GameObject gameObject)
+        public void ActivateHunter()
         {
-            _contactCenter.AddContactInfo(gameObject);
-            _contact = gameObject.GetOrAddComponent<TrackingContacts>();
-            _contact.CollisionHappend += _contactCenter.IdentifyCollisionInfo;
+            _hunter = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_HUNTER);
+            _hunter.gameObject.SetActive(true);
         }
-            
-        public void Cleanup()
-        {
-            _asteroidTimer.MakeAndPushEnemy -= InitializeEnemy;
-            _cometTimer.MakeAndPushEnemy -= InitializeEnemy;
-            _contact.CollisionHappend -= _contactCenter.IdentifyCollisionInfo;
-        }
-
     }
 }
