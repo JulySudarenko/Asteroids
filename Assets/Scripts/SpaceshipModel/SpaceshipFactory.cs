@@ -19,6 +19,7 @@ namespace Asteroids
             return new GameObject(NAME_PLAYER)
                 .AddTag(NAME_PLAYER)
                 .AddTransform(_spaceshipData.SpaceshipTransform)
+                .AddTrackingSystem()
                 .AddSprite(_spaceshipData.SpaceshipSprite)
                 .AddRigidbody2D(_mass)
                 .AddPoligonCollider2D();

@@ -7,11 +7,10 @@ namespace Asteroids
         private GameCamera _camera;
         private SpaceshipInitialization _spaceshipInitialization;
         
-        public WorldInitialization(SpaceshipData data)
+        public WorldInitialization(SpaceshipData data, ContactCenter contactCenter)
         {
             var spaceshipFactory = new SpaceshipFactory(data);
-            var healthKeeper = new HealthKeeper(data);
-            _spaceshipInitialization = new SpaceshipInitialization(spaceshipFactory, healthKeeper);
+            _spaceshipInitialization = new SpaceshipInitialization(spaceshipFactory, data, contactCenter);
             _camera = new GameCamera(_spaceshipInitialization.GetTransform());
             var space = new World(_spaceshipInitialization.GetTransform(), data);
             space.CreateWorld();

@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 namespace Asteroids
 {
     [CreateAssetMenu(fileName = "Bullet", menuName = "Data/Bullet", order = 0)]
-    public class BulletData : ScriptableObject, IForce, IPoolSize, IDamage
+    public class BulletData : ScriptableObject, IForce, IPoolSize, IPower
     {
         public Sprite BulletSprite;
 
@@ -14,7 +14,7 @@ namespace Asteroids
         [SerializeField, Range(1, 50)] private int _bulletPoolSize;
 
         public float Force => _bulletForce;
-        public float Damage => _bulletDamage;
+        public float Power => _bulletDamage;
 
         public int PoolSize => _bulletPoolSize;
     }

@@ -11,7 +11,7 @@ namespace Asteroids
         public EnemyInitialization(IEnemyFactory enemyFactory, IHealth health)
         {
             _enemyFactory = enemyFactory;
-            _health = new Health(health.Health, health.Health);
+            _health = new Health(health, health.Health);
         }
  
         public Rigidbody2D GetEnemy()

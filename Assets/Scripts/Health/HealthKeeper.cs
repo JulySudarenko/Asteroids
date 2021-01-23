@@ -47,21 +47,12 @@ namespace Asteroids
             }
         }
 
-        private void CauseDamage(float point)
+        private void CauseDamage(float power)
         {
-            _spaceshipHealth -= point;
+            _spaceshipHealth -= power;
             if (_spaceshipHealth <= 0)
             {
                 Destroy();
-            }
-        }
-
-        private void Heal(float point)
-        {
-            _spaceshipHealth += point;
-            if (_spaceshipHealth >= _maxHealth.Health)
-            {
-                _spaceshipHealth = _maxHealth.Health;
             }
         }
 

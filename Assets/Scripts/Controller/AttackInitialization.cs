@@ -5,7 +5,6 @@ namespace Asteroids
 {
     public class AttackInitialization : IExecute, IIinitialize
     {
-        //private InputAttackController _inputAttackController;
         private InputAttackControllerProxy _inputAttackController;
         private ShotPoint _barrel;
         private BulletFactory _bulletFactory;
@@ -14,14 +13,14 @@ namespace Asteroids
         private EnemyTimer _lockTimer;
 
         public AttackInitialization(Transform transform,
-            SpaceshipData spaceshipData, BulletData bulletData)
+            SpaceshipData spaceshipData, BulletData bulletData, ContactCenter contactCenter)
         {
             _barrel = new ShotPoint(transform, spaceshipData);
             _bulletFactory = new BulletFactory(bulletData);
             
             _attackLock = new AttackLock(false);
             _inputAttackController = new InputAttackControllerProxy(
-                new InputAttackController(_bulletFactory, bulletData, bulletData), _attackLock);
+                new InputAttackController(_bulletFactory, bulletData, bulletData, contactCenter), _attackLock);
        }
 
         public void Initialize()

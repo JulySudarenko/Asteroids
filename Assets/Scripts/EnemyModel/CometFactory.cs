@@ -17,6 +17,7 @@ namespace Asteroids
         {
             return new GameObject(NameManager.NAME_COMET)
                 .AddSprite(_enemyData.CometData.CometSprite)
+                .AddTrackingSystem()
                 .AddRigidbody2D(_mass)
                 .AddCircleCollider2D();
         }

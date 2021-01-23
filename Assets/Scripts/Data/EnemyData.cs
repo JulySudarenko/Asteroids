@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using static Asteroids.Extentions;
 using UnityEngine;
 
 
@@ -63,9 +63,5 @@ namespace Asteroids
                 return _hunterData;
             }
         }
-
-
-        private T Load<T>(string resourcesPath) where T : Object =>
-            Resources.Load<T>(Path.ChangeExtension(resourcesPath, null));
     }
 }

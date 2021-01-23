@@ -2,18 +2,19 @@
 using static Asteroids.AxisManager;
 using static Asteroids.NameManager;
 
-
 namespace Asteroids
 {
     public class InputAttackController : IAttack
     {
         private BulletPool _bulletPool;
+        private ITimeRemaining _timeRemaining;
         private IForce _force;
 
-        public InputAttackController(BulletFactory bulletFactory, IForce force, IPoolSize poolSize)
+        public InputAttackController(BulletFactory bulletFactory, IForce force, IPoolSize poolSize,
+            ContactCenter contactCenter)
         {
             _force = force;
-            _bulletPool = new BulletPool(bulletFactory, poolSize.PoolSize);
+            _bulletPool = new BulletPool(bulletFactory, poolSize.PoolSize, contactCenter);
         }
 
         public void Shoot(Transform shotPoint)

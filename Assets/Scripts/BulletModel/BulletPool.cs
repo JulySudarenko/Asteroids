@@ -12,19 +12,19 @@ namespace Asteroids
     public sealed class BulletPool
     {
         private Action _reloadingBullet;
-        
+
         private readonly Dictionary<string, HashSet<Rigidbody2D>> _bulletPool;
         private BulletInitialization _bulletInitialization;
-        private ITimeRemaining _timeRemaining;
+        private ContactCenter _contactCenter;
         private Transform _rootPool;
+        private float _returnTime = 5.0f;
         private readonly int _capacityPool;
 
-        
-        public BulletPool(BulletFactory bulletFactory, int capacityPool)
+
+        public BulletPool(BulletFactory bulletFactory, int capacityPool, ContactCenter contactCenter)
         {
-            _timeRemaining = new TimeRemaining(_reloadingBullet, 5);
-            _reloadingBullet += ReloadBullet;
             _bulletPool = new Dictionary<string, HashSet<Rigidbody2D>>();
+            _contactCenter = contactCenter;
             _bulletInitialization = new BulletInitialization(bulletFactory);
             _capacityPool = capacityPool;
             if (!_rootPool)
@@ -39,14 +39,14 @@ namespace Asteroids
             Rigidbody2D result;
             switch (type)
             {
-                case "Bullet":
+                case NAME_AMMUNITION:
                     result = GetBullet(GetListBullets(type));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type,
                         "Не предусмотрен в программе");
             }
-        
+
             return result;
         }
 
@@ -63,14 +63,16 @@ namespace Asteroids
                 for (var i = 0; i < _capacityPool; i++)
                 {
                     var instantiate = _bulletInitialization.GetBullet();
+                    _contactCenter.AddContactInfo(instantiate.gameObject);
                     ReturnToPool(instantiate.transform);
-                    _timeRemaining.AddTimeRemaining();
                     bullets.Add(instantiate);
                 }
+
                 GetBullet(bullets);
             }
-        
+
             bullet = bullets.FirstOrDefault(a => !a.gameObject.activeSelf);
+            _contactCenter.BulletHit += ReturnToPool;
             return bullet;
         }
 
@@ -80,16 +82,12 @@ namespace Asteroids
             transform.localRotation = Quaternion.identity;
             transform.gameObject.SetActive(false);
             transform.SetParent(_rootPool);
+            _contactCenter.BulletHit -= ReturnToPool;
         }
- 
+
         public void RemovePool()
         {
             Object.Destroy(_rootPool.gameObject);
-        }
-
-        private void ReloadBullet()
-        {
-            Debug.Log("Time is over.");
         }
     }
 }

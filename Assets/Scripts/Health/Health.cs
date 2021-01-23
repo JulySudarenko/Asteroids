@@ -1,19 +1,30 @@
-﻿namespace Asteroids
+﻿using UnityEngine;
+
+namespace Asteroids
 {
     public sealed class Health
     {
-        public float Max { get; }
+        private float _max;
         public float Current { get; private set; }
 
-        public Health(float max, float current)
+        public Health(IHealth max, float current)
         {
-            Max = max;
+            _max = max.Health;
             Current = current;
         }
-
-        public void ChangeCurrentHealth(float hp)
+        
+        public void CauseDamage(float power)
         {
-            Current = hp;
+            Current -= power;
+            if (Current <= 0)
+            {
+                Destroy();
+            }
+        }
+
+        private void Destroy()
+        {
+            Debug.Log("Player is dead");
         }
     }
 }

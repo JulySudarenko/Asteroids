@@ -18,6 +18,7 @@ namespace Asteroids
             return new GameObject(NameManager.NAME_HUNTER)
                 .AddSprite(_enemyData.HunterData.HunterSprite)
                 .AddRigidbody2D(_mass)
+                .AddTrackingSystem()
                 .AddPoligonCollider2D();
         }
     }

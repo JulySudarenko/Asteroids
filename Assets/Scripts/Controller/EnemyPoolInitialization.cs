@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using static Asteroids.NameManager;
 using static Asteroids.SpawnPlaces;
+using static Asteroids.BuildAssistant;
 
 
 namespace Asteroids
@@ -8,18 +9,21 @@ namespace Asteroids
     public class EnemyPoolInitialization : IIinitialize, IExecute, ICleanup
     {
         private const float INTERVAL = 5.0f;
-        
+
         private EnemyData _data;
         private Rigidbody2D _hunter;
         private Transform _target;
+        private ContactCenter _contactCenter;
+        private TrackingContacts _contact;
         private EnemyTimer _asteroidTimer;
         private EnemyTimer _cometTimer;
 
 
-        public EnemyPoolInitialization(EnemyData enemyData, Transform target)
+        public EnemyPoolInitialization(EnemyData enemyData, Transform target, ContactCenter contactCenter)
         {
             _data = enemyData;
             _target = target;
+            _contactCenter = contactCenter;
         }
 
         public void Initialize()
@@ -27,9 +31,9 @@ namespace Asteroids
             ServiceLocator.SetService<IEnemyPool>(new EnemyPool(_data));
 
             _hunter = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_HUNTER);
-            _hunter.transform.position = GetStartPoint();
+            AddContactSystem(_hunter.gameObject);
             _hunter.gameObject.SetActive(true);
-            
+
             _asteroidTimer = new EnemyTimer(INTERVAL);
             _cometTimer = new EnemyTimer(INTERVAL);
             _asteroidTimer.MakeAndPushEnemy += InitializeEnemy;
@@ -48,6 +52,7 @@ namespace Asteroids
         {
             var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(name);
             enemy.transform.position = GetStartPoint();
+            AddContactSystem(enemy.gameObject);
             enemy.gameObject.SetActive(true);
             enemy.AddForce((_target.position - enemy.transform.position) * _data.CometData.Force);
         }
@@ -72,10 +77,19 @@ namespace Asteroids
             }
         }
 
+        private void AddContactSystem(GameObject gameObject)
+        {
+            _contactCenter.AddContactInfo(gameObject);
+            _contact = gameObject.GetOrAddComponent<TrackingContacts>();
+            _contact.CollisionHappend += _contactCenter.IdentifyCollisionInfo;
+        }
+            
         public void Cleanup()
         {
             _asteroidTimer.MakeAndPushEnemy -= InitializeEnemy;
             _cometTimer.MakeAndPushEnemy -= InitializeEnemy;
+            _contact.CollisionHappend -= _contactCenter.IdentifyCollisionInfo;
         }
+
     }
 }

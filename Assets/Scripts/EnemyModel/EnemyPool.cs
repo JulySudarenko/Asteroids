@@ -77,7 +77,7 @@ namespace Asteroids
             return enemy;
         }
 
-        private void ReturnToPool(Transform transform)
+        public void ReturnToPool(Transform transform)
         {
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
