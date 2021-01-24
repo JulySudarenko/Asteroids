@@ -10,7 +10,6 @@ namespace Asteroids
         private BulletFactory _bulletFactory;
         private Transform _shotPoint;
         private AttackLock _attackLock;
-        private EnemyTimer _lockTimer;
 
         public AttackInitialization(Transform transform,
             SpaceshipData spaceshipData, BulletData bulletData, ContactCenter contactCenter)

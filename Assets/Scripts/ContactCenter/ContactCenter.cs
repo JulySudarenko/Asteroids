@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Asteroids.NameManager;
 
-
 namespace Asteroids
 {
     public class ContactCenter

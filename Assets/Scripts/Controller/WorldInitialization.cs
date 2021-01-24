@@ -2,7 +2,7 @@
 
 namespace Asteroids
 {
-    public class WorldInitialization : ICleanup
+    public class WorldInitialization : IIinitialize, ICleanup
     {
         private GameCamera _camera;
         private SpaceshipInitialization _spaceshipInitialization;
@@ -18,6 +18,17 @@ namespace Asteroids
 
         public Vector3 Camera => _camera.WorldPosition;
         public Transform Spaceship => _spaceshipInitialization.GetTransform();
+
+        public void Initialize()
+        {
+            var root = new SpaceshipModifier(_spaceshipInitialization);
+            root.Add(new AddHealthModifier(_spaceshipInitialization, 5));
+            root.Add(new AddHealthModifier(_spaceshipInitialization, 10));
+            root.Add(new AddHealthModifier(_spaceshipInitialization, 15));
+            root.Handle();
+            Debug.Log(_spaceshipInitialization.SpaceshipHealth);
+        }
+
         public void Cleanup()
         {
             _spaceshipInitialization.Cleanup();

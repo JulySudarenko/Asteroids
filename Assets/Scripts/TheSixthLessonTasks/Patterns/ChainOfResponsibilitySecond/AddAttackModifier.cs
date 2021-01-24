@@ -8,6 +8,7 @@
             : base(enemy)
         {
             _attack = attack;
+            
         }
 
         public override void Handle()

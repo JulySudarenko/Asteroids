@@ -13,6 +13,11 @@ namespace Asteroids
             Current = current;
         }
         
+        public void ChangeCurrentHealth(float hp)
+        {
+            Current = hp;
+        }
+        
         public void CauseSpaceshipDamage(float power)
         {
             Current -= power;

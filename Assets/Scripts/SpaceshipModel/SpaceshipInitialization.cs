@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace Asteroids
 {
     public class SpaceshipInitialization
@@ -9,6 +8,9 @@ namespace Asteroids
         private GameObject _spaceship;
         private ContactCenter _contactCenter;
         private Health _health;
+
+        public float SpaceshipHealth => _health.Current;
+
 
         public SpaceshipInitialization(ISpaceshipFactory spaceshipFactory, IHealth health, ContactCenter contactCenter)
         {
@@ -21,6 +23,8 @@ namespace Asteroids
             _contactCenter.AddContactInfo(_spaceship);
             _contactCenter.SpaceshipHit += _health.CauseSpaceshipDamage;
         }
+
+        public void ChangeHealth(float health) => _health.ChangeCurrentHealth(health);
 
         public Transform GetTransform()
         {
