@@ -13,7 +13,6 @@ namespace Asteroids
         private EnemyPoolInitialization _enemyPoolInitialization;
         private MovementInitialization _movementInitialization;
 
-
         private void Awake()
         {
             var spaceshipFactory = new SpaceshipFactory(_data.SpaceshipData);
@@ -29,10 +28,8 @@ namespace Asteroids
             _attackInitialization = new AttackInitialization(_spaceshipInitialization.GetTransform(),
                 _data.SpaceshipData, _data.BulletData);
 
-            _enemyPoolInitialization = new EnemyPoolInitialization(_data.EnemyData, 
+            _enemyPoolInitialization = new EnemyPoolInitialization(_data.EnemyData,
                 _spaceshipInitialization.GetTransform());
- 
-            var platform = new PlatformFactory().Create(Application.platform);
         }
 
         private void FixedUpdate()
