@@ -16,6 +16,11 @@ namespace Asteroids
             _maxHealth = maxHealth;
             _spaceshipHealth = _maxHealth.Health;
         }
+        
+        public void ChangeCurrentHealth(float hp)
+        {
+            _spaceshipHealth = hp;
+        }
 
         public void DetermineContact(GameObject gameObject)
         {

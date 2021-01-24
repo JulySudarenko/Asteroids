@@ -1,6 +1,6 @@
 ﻿namespace Asteroids
 {
-    public interface IExecute
+    public interface IExecute : IController
     {
         void Execute(float deltaTime);
     }

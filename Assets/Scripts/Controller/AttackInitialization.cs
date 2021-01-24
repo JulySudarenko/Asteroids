@@ -3,22 +3,43 @@
 
 namespace Asteroids
 {
-    public class AttackInitialization : IExecute
+    public class AttackInitialization : IExecute, IIinitialize
     {
-        private InputAttackController _inputAttackController;
+        //private InputAttackController _inputAttackController;
+        private InputAttackControllerProxy _inputAttackController;
+        private ShotPoint _barrel;
+        private BulletFactory _bulletFactory;
         private Transform _shotPoint;
+        private AttackLock _attackLock;
+        private EnemyTimer _lockTimer;
 
-        public AttackInitialization(Transform transform, SpaceshipData spaceshipData, BulletData bulletData)
+        public AttackInitialization(Transform transform,
+            SpaceshipData spaceshipData, BulletData bulletData)
         {
-            var barrel = new ShotPoint(transform, spaceshipData);
-            _shotPoint = barrel.GetShotPoint();
-            var bulletFactory = new BulletFactory(bulletData);
-            _inputAttackController = new InputAttackController(bulletFactory, bulletData, bulletData);
+            _barrel = new ShotPoint(transform, spaceshipData);
+            _bulletFactory = new BulletFactory(bulletData);
+            
+            _attackLock = new AttackLock(false);
+            _inputAttackController = new InputAttackControllerProxy(
+                new InputAttackController(_bulletFactory, bulletData, bulletData), _attackLock);
+       }
+
+        public void Initialize()
+        {
+            _shotPoint = _barrel.GetShotPoint();
+            _inputAttackController.Shoot(_shotPoint);
+            UnlockAttack();
         }
 
         public void Execute(float deltaTime)
         {
             _inputAttackController.Shoot(_shotPoint);
+            
+        }
+
+        public void UnlockAttack()
+        {
+            _attackLock.IsUnlock = true;
         }
     }
 }

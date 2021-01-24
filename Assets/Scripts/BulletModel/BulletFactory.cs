@@ -19,6 +19,7 @@ namespace Asteroids
             return new GameObject(NAME_AMMUNITION)
                 .AddSprite(_bulletData.BulletSprite)
                 .AddCircleCollider2D()
+                .AddTrackingSystem()
                 .AddRigidbody2D(_mass);
         }
     }

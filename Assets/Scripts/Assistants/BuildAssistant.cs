@@ -49,6 +49,12 @@ namespace Asteroids
             return gameObject;
         }
 
+        public static GameObject AddTrackingSystem(this GameObject gameObject)
+        {
+            gameObject.GetOrAddComponent<TrackingContacts>();
+            return gameObject;
+        }
+
         private static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
         {
             var result = gameObject.GetComponent<T>();

@@ -5,17 +5,15 @@ using static Asteroids.NameManager;
 
 namespace Asteroids
 {
-    public class InputAttackController
+    public class InputAttackController : IAttack
     {
         private BulletPool _bulletPool;
         private IForce _force;
-        private IPoolSize _capacityPool;
 
         public InputAttackController(BulletFactory bulletFactory, IForce force, IPoolSize poolSize)
         {
             _force = force;
-            _capacityPool = poolSize;
-            _bulletPool = new BulletPool(bulletFactory, _capacityPool.PoolSize);
+            _bulletPool = new BulletPool(bulletFactory, poolSize.PoolSize);
         }
 
         public void Shoot(Transform shotPoint)

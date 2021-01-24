@@ -1,6 +1,6 @@
 ﻿namespace Asteroids
 {
-    public class TrakingContacts
+    public interface IController
     {
         
     }
