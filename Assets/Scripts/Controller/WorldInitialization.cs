@@ -6,6 +6,7 @@ namespace Asteroids
     {
         private GameCamera _camera;
         private SpaceshipInitialization _spaceshipInitialization;
+        private float _healthBonus = 10.0f;
         
         public WorldInitialization(SpaceshipData data, ContactCenter contactCenter)
         {
@@ -22,9 +23,9 @@ namespace Asteroids
         public void Initialize()
         {
             var root = new SpaceshipModifier(_spaceshipInitialization);
-            root.Add(new AddHealthModifier(_spaceshipInitialization, 5));
-            root.Add(new AddHealthModifier(_spaceshipInitialization, 10));
-            root.Add(new AddHealthModifier(_spaceshipInitialization, 15));
+            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
+            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
+            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
             root.Handle();
             Debug.Log(_spaceshipInitialization.SpaceshipHealth);
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Asteroids
 {
     [CreateAssetMenu(fileName = "Enemy", menuName = "Data/Enemy", order = 0)]
-    public class EnemyData : ScriptableObject
+    public class EnemyData : ScriptableObject, ISpawnPoint
     {
         [SerializeField] private string _asteroidDataPath;
         [SerializeField] private string _cometDataPath;

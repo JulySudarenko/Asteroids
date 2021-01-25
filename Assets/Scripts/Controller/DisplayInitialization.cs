@@ -7,15 +7,18 @@ namespace Asteroids
         private MenuDisplayFactory _menuDisplayFactory;
         private GameDisplayFactory _gameDisplayFactory;
         private ContactCenter _contactCenter;
+        private MessageBroker _messageBroker;
         private DisplayCommand _displayCommand;
         private DisplayHealthPoints _healthPoints;
         private DisplayGamePoints _gamePoints;
+        private DisplayHunterMessage _hunterMessage;
 
-        public DisplayInitialization(UIData data, ContactCenter contactCenter)
+        public DisplayInitialization(UIData data, ContactCenter contactCenter, MessageBroker messageBroker)
         {
             _menuDisplayFactory = new MenuDisplayFactory(data.MenuDisplayData, data);
             _gameDisplayFactory = new GameDisplayFactory(data.GameDisplayData, data);
             _contactCenter = contactCenter;
+            _messageBroker = messageBroker;
         }
 
         public void Initialize()
@@ -33,9 +36,10 @@ namespace Asteroids
 
             _healthPoints = new DisplayHealthPoints(gameDisplayInitialization.GetHealthPointsText());
             _gamePoints = new DisplayGamePoints(gameDisplayInitialization.GetGamePointsText());
-            gameDisplayInitialization.GetHunterPointsText();
+            _hunterMessage=new DisplayHunterMessage(gameDisplayInitialization.GetHunterPointsText());
 
-            _contactCenter.TransferPointsOnScreen += ShowGamePoints;
+            _contactCenter.TransferPointsOnScreen += _gamePoints.ShowGamePoints;
+            _messageBroker.SendMessage += _hunterMessage.ShowHunterMessage;
         }
 
         public void Execute(float deltaTime)
@@ -43,14 +47,10 @@ namespace Asteroids
             _displayCommand.CheckInput();
         }
 
-        private void ShowGamePoints(string points)
-        {
-            _gamePoints.ShowGamePoints(points);
-        }
-
         public void Cleanup()
         {
-            _contactCenter.TransferPointsOnScreen -= ShowGamePoints;
+            _contactCenter.TransferPointsOnScreen -=_gamePoints.ShowGamePoints;
+            _messageBroker.SendMessage -= _hunterMessage.ShowHunterMessage;
         }
     }
 }

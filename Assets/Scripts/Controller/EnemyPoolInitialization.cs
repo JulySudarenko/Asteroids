@@ -1,76 +1,42 @@
 ﻿using UnityEngine;
-using static Asteroids.NameManager;
-using static Asteroids.SpawnPlaces;
 
 namespace Asteroids
 {
     public class EnemyPoolInitialization : IIinitialize, IExecute
     {
-        private float AsteroidAddTime = 4.0f;
-        private float CometAddTime = 3.0f;
-        private float HunterAddTime = 10.0f;
+        private EnemyController _asteroidController;
+        private EnemyController _cometController;
+        private EnemyController _hunterController;
 
-        private EnemyData _data;
-        private Rigidbody2D _hunter;
-        private Transform _target;
-        private ContactCenter _contactCenter;
         private ITimeRemaining _timeRemaining;
+
+        private float _asteroidAddTime = 4.0f;
+        private float _cometAddTime = 3.0f;
+        private float _hunterAddTime = 10.0f;
 
         public EnemyPoolInitialization(EnemyData enemyData, Transform target, ContactCenter contactCenter)
         {
-            _data = enemyData;
-            _target = target;
-            _contactCenter = contactCenter;
+            ServiceLocator.SetService<IEnemyPool>(new EnemyPool(enemyData, contactCenter));
+            _hunterController = new HunterController(enemyData, enemyData.HunterData, target);
+            _asteroidController = new AsteroidController(enemyData, enemyData.AsteroidData, target);
+            _cometController = new CometController(enemyData, enemyData.CometData, target);
         }
 
         public void Initialize()
         {
-            ServiceLocator.SetService<IEnemyPool>(new EnemyPool(_data, _contactCenter));
-
-            ActivateHunter();
-            _timeRemaining = new TimeRemaining(InitializeAsteroid, AsteroidAddTime, true);
+            _timeRemaining = new TimeRemaining(_hunterController.InitializeEnemy, _hunterAddTime, true);
             _timeRemaining.AddTimeRemaining();
-            _timeRemaining = new TimeRemaining(InitializeComet, CometAddTime, true);
+
+            _timeRemaining = new TimeRemaining(_asteroidController.InitializeEnemy, _asteroidAddTime, true);
+            _timeRemaining.AddTimeRemaining();
+
+            _timeRemaining = new TimeRemaining(_cometController.InitializeEnemy, _cometAddTime, true);
             _timeRemaining.AddTimeRemaining();
         }
 
         public void Execute(float deltaTime)
         {
-            StartHunt(_hunter, deltaTime);
-        }
-
-        private void InitializeAsteroid()
-        {
-            var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_ASTEROID);
-            enemy.transform.position = GetStartPoint();
-            enemy.gameObject.SetActive(true);
-            enemy.AddForce((_target.position - enemy.transform.position) * _data.AsteroidData.Force);
-        }
-        
-        private void InitializeComet()
-        {
-            var enemy = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_COMET);
-            enemy.transform.position = GetStartPoint();
-            enemy.gameObject.SetActive(true);
-            enemy.AddForce((_target.position - enemy.transform.position) * _data.CometData.Force);
-        }
-
-        public Vector3 GetStartPoint()
-        {
-            return FindPoint(_target.position, _data.SpawnDistance, _data.StartAngle, _data.FinishAngle);
-        }
-
-        public void StartHunt(Rigidbody2D enemy, float deltaTime)
-        {
-                Vector3 direction = (_target.position - enemy.transform.localPosition).normalized;
-                var speed = deltaTime * _data.HunterData.Speed;
-                enemy.transform.position += direction * speed;
-        }
-
-        public void ActivateHunter()
-        {
-            _hunter = ServiceLocator.Resolve<IEnemyPool>().GetEnemy(NAME_HUNTER);
-            _hunter.gameObject.SetActive(true);
+            _hunterController.ExecuteEnemy(deltaTime);
         }
     }
 }

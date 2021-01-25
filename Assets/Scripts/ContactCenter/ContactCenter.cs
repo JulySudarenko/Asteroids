@@ -5,7 +5,7 @@ using static Asteroids.NameManager;
 
 namespace Asteroids
 {
-    public class ContactCenter
+    public class ContactCenter : IIinitialize, ICleanup
     {
         public Action<string> TransferPointsOnScreen;
         public Action<Transform> BulletHit;
@@ -14,14 +14,21 @@ namespace Asteroids
 
         private readonly Dictionary<int, GameObject> _contactInfo;
 
+        private MessageBroker _messageBroker;
         private readonly ScoreInterpreter _scoreInterpreter;
         private readonly SpecifySpaceshipDamage _specifySpaceshipDamage;
 
-        public ContactCenter(EnemyData points, Data power)
+        public ContactCenter(EnemyData points, Data power, MessageBroker messageBroker)
         {
+            _messageBroker = messageBroker;
             _scoreInterpreter = new ScoreInterpreter(points);
             _specifySpaceshipDamage = new SpecifySpaceshipDamage(power);
             _contactInfo = new Dictionary<int, GameObject>();
+        }
+
+        public void Initialize()
+        {
+            EnemyHit += _messageBroker.AddMessage;
         }
 
         public Dictionary<int, GameObject> ContactInfo => _contactInfo;
@@ -72,6 +79,11 @@ namespace Asteroids
                     throw new ArgumentOutOfRangeException(nameof(name), name,
                         "Attention!!! Unidentified flying object detected");
             }
+        }
+
+        public void Cleanup()
+        {
+            EnemyHit -= _messageBroker.AddMessage;
         }
     }
 }
