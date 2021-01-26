@@ -22,4 +22,5 @@ namespace Asteroids
                 _spawnPoint.FinishAngle);
         }
     }
+
 }

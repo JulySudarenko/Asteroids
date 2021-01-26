@@ -31,6 +31,11 @@ namespace Asteroids
             return _spaceship.transform;
         }
 
+        public Rigidbody2D GetRigidbody()
+        {
+            return _spaceship.GetComponent<Rigidbody2D>();
+        }
+
         public void Cleanup()
         {
             _contactCenter.SpaceshipHit -= _health.CauseSpaceshipDamage;

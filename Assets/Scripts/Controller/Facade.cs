@@ -10,12 +10,13 @@
             var contactCenter = new ContactCenter(data.EnemyData, data, messageBroker);
 
             var worldInitialization = new WorldInitialization(data.SpaceshipData, contactCenter);
-
+            var momentMemory = new PositionMemoryTimer(worldInitialization.Rigidbody);
             
             _controllers = new Controllers();
             _controllers.Add(new TimeRemainingController());
             _controllers.Add(worldInitialization);
             _controllers.Add(contactCenter);
+            _controllers.Add(momentMemory);
             _controllers.Add(new MovementInitialization(worldInitialization.Spaceship, data.SpaceshipData,
                 worldInitialization.Camera));
             _controllers.Add(new AttackInitialization(worldInitialization.Spaceship, data.SpaceshipData,

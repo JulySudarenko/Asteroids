@@ -20,6 +20,8 @@ namespace Asteroids
         public Vector3 Camera => _camera.WorldPosition;
         public Transform Spaceship => _spaceshipInitialization.GetTransform();
 
+        public Rigidbody2D Rigidbody => _spaceshipInitialization.GetRigidbody();
+        
         public void Initialize()
         {
             var root = new SpaceshipModifier(_spaceshipInitialization);

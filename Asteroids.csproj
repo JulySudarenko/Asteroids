@@ -146,6 +146,8 @@
      <Compile Include="Assets\Scripts\Interfaces\IIinitialize.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IMove.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IRotation.cs" />
+     <Compile Include="Assets\Scripts\MemoryTimer\PointInTime.cs" />
+     <Compile Include="Assets\Scripts\MemoryTimer\PositionMemoryTimer.cs" />
      <Compile Include="Assets\Scripts\Move\AccelerationMove.cs" />
      <Compile Include="Assets\Scripts\Move\InputMoveController.cs" />
      <Compile Include="Assets\Scripts\Move\MoveTransform.cs" />
