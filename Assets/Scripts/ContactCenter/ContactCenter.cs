@@ -5,7 +5,7 @@ using static Asteroids.NameManager;
 
 namespace Asteroids
 {
-    public class ContactCenter : IIinitialize, ICleanup
+    public class ContactCenter : ICleanup
     {
         public Action<string> TransferPointsOnScreen;
         public Action<Transform> BulletHit;
@@ -13,30 +13,25 @@ namespace Asteroids
         public Action<float> SpaceshipHit;
 
         private readonly Dictionary<int, GameObject> _contactInfo;
+        private readonly List<TrackingContacts> _contacts;
 
-        private MessageBroker _messageBroker;
         private readonly ScoreInterpreter _scoreInterpreter;
         private readonly SpecifySpaceshipDamage _specifySpaceshipDamage;
 
-        public ContactCenter(EnemyData points, Data power, MessageBroker messageBroker)
+        public ContactCenter(EnemyData points, Data power)
         {
-            _messageBroker = messageBroker;
             _scoreInterpreter = new ScoreInterpreter(points);
             _specifySpaceshipDamage = new SpecifySpaceshipDamage(power);
             _contactInfo = new Dictionary<int, GameObject>();
+            _contacts = new List<TrackingContacts>();
         }
 
-        public void Initialize()
-        {
-            EnemyHit += _messageBroker.AddMessage;
-        }
-
-        public Dictionary<int, GameObject> ContactInfo => _contactInfo;
 
         public void AddContactInfo(GameObject gameObject)
         {
             _contactInfo.Add(gameObject.GetInstanceID(), gameObject);
             var contact = gameObject.GetOrAddComponent<TrackingContacts>();
+            _contacts.Add(contact);
             contact.CollisionHappend += IdentifyCollisionInfo;
         }
 
@@ -58,13 +53,16 @@ namespace Asteroids
             switch (gameObject.name)
             {
                 case NAME_ASTEROID:
-                    EnemyHit?.Invoke(gameObject.transform);
+                    if (name == NAME_AMMUNITION)
+                        EnemyHit?.Invoke(gameObject.transform);
                     break;
                 case NAME_COMET:
-                    EnemyHit?.Invoke(gameObject.transform);
+                    if (name == NAME_AMMUNITION)
+                        EnemyHit?.Invoke(gameObject.transform);
                     break;
                 case NAME_HUNTER:
-                    EnemyHit?.Invoke(gameObject.transform);
+                    if (name == NAME_AMMUNITION | name == NAME_PLAYER)
+                        EnemyHit?.Invoke(gameObject.transform);
                     break;
                 case NAME_PLAYER:
                     var damage = _specifySpaceshipDamage.MakeDamageDecision(name);
@@ -83,7 +81,10 @@ namespace Asteroids
 
         public void Cleanup()
         {
-            EnemyHit -= _messageBroker.AddMessage;
+            foreach (var contact in _contacts)
+            {
+                contact.CollisionHappend -= IdentifyCollisionInfo;
+            }
         }
     }
 }

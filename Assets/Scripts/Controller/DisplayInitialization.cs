@@ -1,24 +1,18 @@
-﻿
-
-namespace Asteroids
+﻿namespace Asteroids
 {
-    public class DisplayInitialization : IIinitialize, IExecute, ICleanup
+    public class DisplayInitialization : IIinitialize, IExecute
     {
         private MenuDisplayFactory _menuDisplayFactory;
         private GameDisplayFactory _gameDisplayFactory;
-        private ContactCenter _contactCenter;
-        private MessageBroker _messageBroker;
         private DisplayCommand _displayCommand;
         private DisplayHealthPoints _healthPoints;
         private DisplayGamePoints _gamePoints;
         private DisplayHunterMessage _hunterMessage;
 
-        public DisplayInitialization(UIData data, ContactCenter contactCenter, MessageBroker messageBroker)
+        public DisplayInitialization(UIData data)
         {
             _menuDisplayFactory = new MenuDisplayFactory(data.MenuDisplayData, data);
             _gameDisplayFactory = new GameDisplayFactory(data.GameDisplayData, data);
-            _contactCenter = contactCenter;
-            _messageBroker = messageBroker;
         }
 
         public void Initialize()
@@ -36,21 +30,27 @@ namespace Asteroids
 
             _healthPoints = new DisplayHealthPoints(gameDisplayInitialization.GetHealthPointsText());
             _gamePoints = new DisplayGamePoints(gameDisplayInitialization.GetGamePointsText());
-            _hunterMessage=new DisplayHunterMessage(gameDisplayInitialization.GetHunterPointsText());
+            _hunterMessage = new DisplayHunterMessage(gameDisplayInitialization.GetHunterPointsText());
+        }
 
-            _contactCenter.TransferPointsOnScreen += _gamePoints.ShowGamePoints;
-            _messageBroker.SendMessage += _hunterMessage.ShowHunterMessage;
+        public void ShowGameScore(string message)
+        {
+            _gamePoints.ShowGamePoints(message);
+        }
+
+        public void ShowHuntersDeathScore(string message)
+        {
+            _hunterMessage.ShowHunterMessage(message);
+        }
+
+        public void ShowPlayerHealth(string message)
+        {
+            _healthPoints.ShowHealthPoints(message);
         }
 
         public void Execute(float deltaTime)
         {
             _displayCommand.CheckInput();
-        }
-
-        public void Cleanup()
-        {
-            _contactCenter.TransferPointsOnScreen -=_gamePoints.ShowGamePoints;
-            _messageBroker.SendMessage -= _hunterMessage.ShowHunterMessage;
         }
     }
 }

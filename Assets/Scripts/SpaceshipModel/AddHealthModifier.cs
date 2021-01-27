@@ -2,18 +2,19 @@
 {
     internal sealed class AddHealthModifier : SpaceshipModifier
     {
+        private SpaceshipHealthController _spaceshipHealthController;
         private float _deltaHealth;
 
-        public AddHealthModifier(SpaceshipInitialization spaceship, float health)
+        public AddHealthModifier(SpaceshipInitialization spaceship, SpaceshipHealthController healthController, float health)
             : base(spaceship)
         {
+            _spaceshipHealthController = healthController;
             _deltaHealth = health;
         }
 
         public override void Handle()
         {
-            var oldHealth = _spaceship.SpaceshipHealth;
-            _spaceship.ChangeHealth(oldHealth + _deltaHealth);
+            _spaceshipHealthController.HealthModifier(_deltaHealth);
             base.Handle();
         }
     }

@@ -6,25 +6,12 @@ namespace Asteroids
     {
         private ISpaceshipFactory _spaceshipFactory;
         private GameObject _spaceship;
-        private ContactCenter _contactCenter;
-        private Health _health;
 
-        public float SpaceshipHealth => _health.Current;
-
-
-        public SpaceshipInitialization(ISpaceshipFactory spaceshipFactory, IHealth health, ContactCenter contactCenter)
+        public SpaceshipInitialization(ISpaceshipFactory spaceshipFactory)
         {
             _spaceshipFactory = spaceshipFactory;
             _spaceship = _spaceshipFactory.CreateSpaceship();
-
-            _contactCenter = contactCenter;
-            _health = new Health(health, health.Health);
-
-            _contactCenter.AddContactInfo(_spaceship);
-            _contactCenter.SpaceshipHit += _health.CauseSpaceshipDamage;
         }
-
-        public void ChangeHealth(float health) => _health.ChangeCurrentHealth(health);
 
         public Transform GetTransform()
         {
@@ -34,11 +21,6 @@ namespace Asteroids
         public Rigidbody2D GetRigidbody()
         {
             return _spaceship.GetComponent<Rigidbody2D>();
-        }
-
-        public void Cleanup()
-        {
-            _contactCenter.SpaceshipHit -= _health.CauseSpaceshipDamage;
         }
     }
 }

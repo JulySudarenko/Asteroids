@@ -2,39 +2,17 @@
 
 namespace Asteroids
 {
-    public class WorldInitialization : IIinitialize, ICleanup
+    public class WorldInitialization
     {
-        private GameCamera _camera;
-        private SpaceshipInitialization _spaceshipInitialization;
-        private float _healthBonus = 10.0f;
-        
-        public WorldInitialization(SpaceshipData data, ContactCenter contactCenter)
+        private readonly GameCamera _camera;
+
+        public WorldInitialization(SpaceshipData data, Transform player)
         {
-            var spaceshipFactory = new SpaceshipFactory(data);
-            _spaceshipInitialization = new SpaceshipInitialization(spaceshipFactory, data, contactCenter);
-            _camera = new GameCamera(_spaceshipInitialization.GetTransform());
-            var space = new World(_spaceshipInitialization.GetTransform(), data);
+            _camera = new GameCamera(player);
+            var space = new World(player, data);
             space.CreateWorld();
         }
 
         public Vector3 Camera => _camera.WorldPosition;
-        public Transform Spaceship => _spaceshipInitialization.GetTransform();
-
-        public Rigidbody2D Rigidbody => _spaceshipInitialization.GetRigidbody();
-        
-        public void Initialize()
-        {
-            var root = new SpaceshipModifier(_spaceshipInitialization);
-            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
-            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
-            root.Add(new AddHealthModifier(_spaceshipInitialization, _healthBonus));
-            root.Handle();
-            Debug.Log(_spaceshipInitialization.SpaceshipHealth);
-        }
-
-        public void Cleanup()
-        {
-            _spaceshipInitialization.Cleanup();
-        }
     }
 }

@@ -1,41 +1,22 @@
-﻿using UnityEngine;
-
-namespace Asteroids
+﻿namespace Asteroids
 {
     public sealed class Health
     {
-        private float _max;
+
+        private float _maxHealth;
         public float Current { get; private set; }
 
         public Health(IHealth max, float current)
         {
-            _max = max.Health;
-            Current = current;
+            _maxHealth = max.Health;
+            ChangeCurrentHealth(current);
         }
-        
+
+        public float MAXHealth => _maxHealth;
+
         public void ChangeCurrentHealth(float hp)
         {
             Current = hp;
-        }
-        
-        public void CauseSpaceshipDamage(float power)
-        {
-            Current -= power;
-            if (Current <= 0)
-            {
-                Debug.Log("Player is dead");
-            }
-            Debug.Log($"Spaceship health {Current}");
-        }
-
-        public void CauseEnemyDamage(Transform transform, float power)
-        {
-            Current -= power;
-            if (Current <= 0)
-            {
-                Debug.Log($"{transform.name} is dead.");
-            }
-            Debug.Log($"{transform.name} health {Current}");
         }
     }
 }

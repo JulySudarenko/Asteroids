@@ -11,7 +11,7 @@ namespace Asteroids
             _healthPointsLabel = text;
         }
 
-        public void ShowHealthPoints(float health)
+        public void ShowHealthPoints(string health)
         {
             _healthPointsLabel.text = $"Health points: {health}";
         }

@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\Controller\Facade.cs" />
      <Compile Include="Assets\Scripts\Controller\MainController.cs" />
      <Compile Include="Assets\Scripts\Controller\MovementInitialization.cs" />
+     <Compile Include="Assets\Scripts\Controller\SpaceshipController.cs" />
      <Compile Include="Assets\Scripts\Controller\WorldInitialization.cs" />
      <Compile Include="Assets\Scripts\Data\AsteroidData.cs" />
      <Compile Include="Assets\Scripts\Data\BulletData.cs" />
@@ -127,6 +128,7 @@
      <Compile Include="Assets\Scripts\EnemyModel\HunterFactory.cs" />
      <Compile Include="Assets\Scripts\EnemyModel\IEnemyFactory.cs" />
      <Compile Include="Assets\Scripts\Health\Health.cs" />
+     <Compile Include="Assets\Scripts\Health\SpaceshipHealthController.cs" />
      <Compile Include="Assets\Scripts\Interfaces\DataInterfaces\ICanvas.cs" />
      <Compile Include="Assets\Scripts\Interfaces\DataInterfaces\IForce.cs" />
      <Compile Include="Assets\Scripts\Interfaces\DataInterfaces\IHealth.cs" />

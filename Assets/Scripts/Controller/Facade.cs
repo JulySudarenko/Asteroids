@@ -6,23 +6,26 @@
 
         public Facade(Data data, UIData uiData)
         {
-            var messageBroker = new MessageBroker();
-            var contactCenter = new ContactCenter(data.EnemyData, data, messageBroker);
 
-            var worldInitialization = new WorldInitialization(data.SpaceshipData, contactCenter);
-            var momentMemory = new PositionMemoryTimer(worldInitialization.Rigidbody);
-            
+            var contactCenter = new ContactCenter(data.EnemyData, data);
+            var view = new DisplayInitialization(uiData);
+            var spaceship = new SpaceshipController(data.SpaceshipData, contactCenter);
+            var messageBroker = new MessageBroker(contactCenter, view, spaceship.SpaceshipHealthController);
+      
+            var worldInitialization = new WorldInitialization(data.SpaceshipData, spaceship.Spaceship);
             _controllers = new Controllers();
+            _controllers.Add(spaceship);
+            _controllers.Add(messageBroker);
             _controllers.Add(new TimeRemainingController());
-            _controllers.Add(worldInitialization);
-            _controllers.Add(contactCenter);
-            _controllers.Add(momentMemory);
-            _controllers.Add(new MovementInitialization(worldInitialization.Spaceship, data.SpaceshipData,
+            _controllers.Add(new PositionMemoryTimer(spaceship.Rigidbody));
+            _controllers.Add(new MovementInitialization(spaceship.Spaceship, data.SpaceshipData,
                 worldInitialization.Camera));
-            _controllers.Add(new AttackInitialization(worldInitialization.Spaceship, data.SpaceshipData,
+            _controllers.Add(new AttackInitialization(spaceship.Spaceship, data.SpaceshipData,
                 data.BulletData, contactCenter));
-            _controllers.Add(new EnemyPoolInitialization(data.EnemyData, worldInitialization.Spaceship, contactCenter));
-            _controllers.Add(new DisplayInitialization(uiData, contactCenter, messageBroker));
+            _controllers.Add(new EnemyPoolInitialization(data.EnemyData, spaceship.Spaceship, contactCenter));
+            _controllers.Add(view);
+            
+            
         }
 
         public void FacadeInitialize() => _controllers.Initialize();
